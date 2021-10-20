@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration</title>
+</head>
+<style>
+    div {
+        margin: 10px;
+    }
+</style>
+<body>
+<h1>Registration</h1>
+
+<form th:object="${newUser}" method="post" th:action="@{/registration}">
+    <div>
+        <input type="text" th:field="*{profile.userName.user.firstName}" />
+    </div>
+<!--    <div><label>First Name <input type="text" th:field="*{user.firstName}"></label></div>-->
+<!--    <div><label>Last Name <input type="text" th:field="*{name.user.lastName}"></label></div>-->
+<!--    <div><label>Email <input type="text" th:field="*{email}"></label></div>-->
+<!--    <div><label>Username <input type="text" th:field="*{name.username}"></label></div>-->
+<!--    <div><label>Password <input type="password" th:field="*{password}"></label></div>-->
+    <hr>
+    <div><input type="submit" value="Get started"/></div>
+</form>
+</body>
+</html>
