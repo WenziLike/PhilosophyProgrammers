@@ -13,19 +13,35 @@
     }
 </style>
 <body>
-<h1>Registration</h1>
-
-<form th:object="${newUser}" method="post" th:action="@{/registration}">
+<h2>Registration</h2>
+<form action="" th:object="${user}" method="post">
     <div>
-        <input type="text" th:field="*{profile.userName.user.firstName}" />
+        <label>First Name</label>
+        <input th:field="*{firstName}"/>
     </div>
-<!--    <div><label>First Name <input type="text" th:field="*{user.firstName}"></label></div>-->
-<!--    <div><label>Last Name <input type="text" th:field="*{name.user.lastName}"></label></div>-->
-<!--    <div><label>Email <input type="text" th:field="*{email}"></label></div>-->
-<!--    <div><label>Username <input type="text" th:field="*{name.username}"></label></div>-->
-<!--    <div><label>Password <input type="password" th:field="*{password}"></label></div>-->
-    <hr>
-    <div><input type="submit" value="Get started"/></div>
+    <div>
+        <label>Last Name</label>
+        <input th:field="*{lastName}"/>
+    </div>
+    <div>
+        <label>Username</label>
+        <input th:field="*{profile.userName.username}"/>
+    </div>
+    <div>
+        <label>Email</label>
+        <input type="email" th:field="*{email}"/>
+    </div>
+    <div>
+        <label>Password</label>
+        <input th:field="*{password.password}"/>
+    </div>
+    <div>
+        <label>Confirm</label>
+        <input th:field="*{password.matchingPassword}"/>
+    </div>
+    <input type="submit" th:value="Get started">
 </form>
+
+<a th:href="@{/login.html}">Login</a>
 </body>
 </html>

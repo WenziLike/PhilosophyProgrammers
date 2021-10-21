@@ -1,8 +1,7 @@
-package com.philosophyprogrammers.modules;
+package com.philosophyprogrammers.modules.user;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
-import java.util.Objects;
 
 @Embeddable
 public class Profile {
@@ -21,12 +20,14 @@ public class Profile {
         this.image = image;
     }
 
+
     public UserName getUserName() {
         return userName;
     }
 
-    public Image getImage() {
-        return image;
+    public Profile setUserName(UserName userName) {
+        this.userName = userName;
+        return this;
     }
 
     @Override
@@ -35,18 +36,5 @@ public class Profile {
                 "userName=" + userName +
                 ", image=" + image +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Profile profile = (Profile) o;
-        return userName.equals(profile.userName) && image.equals(profile.image);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(userName, image);
     }
 }

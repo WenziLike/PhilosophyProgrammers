@@ -1,15 +1,12 @@
-package com.philosophyprogrammers.modules;
+package com.philosophyprogrammers.modules.user;
 
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
-import java.util.Objects;
 
 @Embeddable
 public class UserName {
 
     private String username;
-    @Embedded
-    private User user;
 
     @Embedded
     private StatusOnline statusOnline;
@@ -17,9 +14,8 @@ public class UserName {
     public UserName() {
     }
 
-    public UserName(String username, User user, StatusOnline statusOnline) {
+    public UserName(String username, StatusOnline statusOnline) {
         this.username = username;
-        this.user = user;
         this.statusOnline = statusOnline;
     }
 
@@ -29,15 +25,6 @@ public class UserName {
 
     public UserName setUsername(String username) {
         this.username = username;
-        return this;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public UserName setUser(User user) {
-        this.user = user;
         return this;
     }
 
@@ -56,18 +43,5 @@ public class UserName {
                 "username='" + username + '\'' +
                 ", statusOnline=" + statusOnline +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserName userName = (UserName) o;
-        return Objects.equals(username, userName.username) && Objects.equals(statusOnline, userName.statusOnline);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(username, statusOnline);
     }
 }

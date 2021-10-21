@@ -1,15 +1,14 @@
 package com.philosophyprogrammers.service;
 
-import com.philosophyprogrammers.entity.PhilosophyProgrammersEntity;
-import com.philosophyprogrammers.modules.UserName;
+import com.philosophyprogrammers.entity.User;
+import com.philosophyprogrammers.modules.user.Email;
 import com.philosophyprogrammers.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class UserService implements UserFindService{
+public class UserService implements CrudService {
 
     private final UserRepository userRepository;
 
@@ -17,28 +16,39 @@ public class UserService implements UserFindService{
         this.userRepository = userRepository;
     }
 
-    public List<PhilosophyProgrammersEntity> getUsers() {
+
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
 
-    public void signUpUser(PhilosophyProgrammersEntity philosophyProgrammersEntity) {
-        if (philosophyProgrammersEntity.getId() != null) {
-            IllegalArgumentException exception =
-                    new IllegalArgumentException("New book not make id");
-            throw exception;
+    @Override
+    public User registerNewUser(User account) {
+        if (emailExists(account.getEmail())) {
+            throw
+                    new IllegalArgumentException
+                            ("There is an account with that email address: "
+                                    + account.getEmail());
         }
-        userRepository.save(philosophyProgrammersEntity);
-    }
 
+        User user = new User();
+
+        user.setFirstName(account.getFirstName());
+        user.setLastName(account.getFirstName());
+        user.setEmail(account.getEmail());
+        user.setPassword(account.getPassword());
+//        user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
+        return userRepository.save(user);
+    }
 
     @Override
-    public Optional<PhilosophyProgrammersEntity> findById(Long id) {
-        return Optional.empty();
+    public void saveRegisteredUser(User user) {
+        userRepository.save(user);
     }
 
-    @Override
-    public Optional<PhilosophyProgrammersEntity> findByUsername(UserName userName) {
-        return userRepository.findFirstByProfileUserName(userName);
+    // функция проверки Email на пустоту
+    private boolean emailExists(Email email) {
+        return userRepository.findUserByEmail(email) != null;
     }
+
 }

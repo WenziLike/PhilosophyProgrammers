@@ -1,7 +1,6 @@
-package com.philosophyprogrammers.modules;
+package com.philosophyprogrammers.modules.user;
 
 import javax.persistence.Embeddable;
-import java.util.Objects;
 
 @Embeddable
 public class StatusOnline {
@@ -27,20 +26,7 @@ public class StatusOnline {
     @Override
     public String toString() {
         return "StatusOnline{" +
-                "active=" + statusOnline +
+                "statusOnline=" + statusOnline +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        StatusOnline that = (StatusOnline) o;
-        return Objects.equals(statusOnline, that.statusOnline);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(statusOnline);
     }
 }
