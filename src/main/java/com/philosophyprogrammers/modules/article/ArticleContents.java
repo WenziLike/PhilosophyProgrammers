@@ -51,4 +51,13 @@ public class ArticleContents {
         this.body = body;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "ArticleContents{" +
+                "title=" + title +
+                ", description='" + description + '\'' +
+                ", body='" + body + '\'' +
+                '}';
+    }
 }

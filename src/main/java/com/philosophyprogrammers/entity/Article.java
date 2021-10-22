@@ -75,4 +75,15 @@ public class Article {
         this.updatedAt = updatedAt;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", contents=" + contents +
+                ", author=" + author +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

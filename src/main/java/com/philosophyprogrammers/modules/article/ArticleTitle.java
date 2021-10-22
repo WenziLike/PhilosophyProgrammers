@@ -40,4 +40,12 @@ public class ArticleTitle {
         this.slug = slug;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "ArticleTitle{" +
+                "title='" + title + '\'' +
+                ", slug='" + slug + '\'' +
+                '}';
+    }
 }

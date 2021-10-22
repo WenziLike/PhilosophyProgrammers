@@ -103,4 +103,16 @@ public class User {
         this.profile = profile;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email=" + email +
+                ", password=" + password +
+                ", profile=" + profile +
+                '}';
+    }
 }
