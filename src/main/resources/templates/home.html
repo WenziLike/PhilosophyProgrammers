@@ -7,8 +7,16 @@
 <body>
 <h1>Home Page</h1>
 <hr>
-
 <a href="/users">USERS</a>
+<hr>
+<h4>All articles: </h4>
+<div th:each="article : ${articles}">
+    <p th:utext="${article.contents.title.title}"></p>
+    <p th:utext="${article.contents.body}"></p>
+    <p th:utext="${article.contents.description}"></p>
+    <p th:utext="${article.createdAt}"></p>
+    <p th:utext="${article.author.profile.userName.username}"></p>
+</div>
 
 
 </body>
