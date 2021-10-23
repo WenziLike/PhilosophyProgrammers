@@ -1,7 +1,5 @@
 package com.philosophyprogrammers.entity;
 
-import com.philosophyprogrammers.modules.user.Email;
-import com.philosophyprogrammers.modules.user.Password;
 import com.philosophyprogrammers.modules.user.Profile;
 import com.philosophyprogrammers.modules.user.UserName;
 
@@ -20,11 +18,9 @@ public class User {
 
     private String firstName;
     private String lastName;
-    @Embedded
-    private Email email;
-    @Embedded
-    private Password password;
-
+    private String email;
+    private String password;
+    private String matchingPassword;
 
     @Embedded
     private Profile profile;
@@ -32,11 +28,18 @@ public class User {
     public User() {
     }
 
-    public User(String firstName, String lastName, Email email, Password password, Profile profile) {
+    public User(String firstName,
+                String lastName,
+                String email,
+                String password,
+                String matchingPassword,
+                Profile profile) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.matchingPassword = matchingPassword;
         this.profile = profile;
     }
 
@@ -77,21 +80,30 @@ public class User {
         return this;
     }
 
-    public Email getEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public User setEmail(Email email) {
+    public User setEmail(String email) {
         this.email = email;
         return this;
     }
 
-    public Password getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public User setPassword(Password password) {
+    public User setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public String getMatchingPassword() {
+        return matchingPassword;
+    }
+
+    public User setMatchingPassword(String matchingPassword) {
+        this.matchingPassword = matchingPassword;
         return this;
     }
 
@@ -110,8 +122,9 @@ public class User {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", email=" + email +
-                ", password=" + password +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", matchingPassword='" + matchingPassword + '\'' +
                 ", profile=" + profile +
                 '}';
     }

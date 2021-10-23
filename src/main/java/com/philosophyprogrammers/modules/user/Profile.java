@@ -8,18 +8,15 @@ public class Profile {
 
     @Embedded
     private UserName userName;
-
-    @Embedded
-    private Image image;
+    private String image;
 
     public Profile() {
     }
 
-    public Profile(UserName userName, Image image) {
+    public Profile(UserName userName, String image) {
         this.userName = userName;
         this.image = image;
     }
-
 
     public UserName getUserName() {
         return userName;
@@ -30,11 +27,20 @@ public class Profile {
         return this;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public Profile setImage(String image) {
+        this.image = image;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "Profile{" +
                 "userName=" + userName +
-                ", image=" + image +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

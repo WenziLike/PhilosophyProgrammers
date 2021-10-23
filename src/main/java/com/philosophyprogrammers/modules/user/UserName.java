@@ -1,20 +1,17 @@
 package com.philosophyprogrammers.modules.user;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
 
 @Embeddable
 public class UserName {
 
     private String username;
-
-    @Embedded
-    private StatusOnline statusOnline;
+    private Boolean statusOnline;
 
     public UserName() {
     }
 
-    public UserName(String username, StatusOnline statusOnline) {
+    public UserName(String username, Boolean statusOnline) {
         this.username = username;
         this.statusOnline = statusOnline;
     }
@@ -28,11 +25,11 @@ public class UserName {
         return this;
     }
 
-    public StatusOnline getStatusOnline() {
+    public Boolean getStatusOnline() {
         return statusOnline;
     }
 
-    public UserName setStatusOnline(StatusOnline statusOnline) {
+    public UserName setStatusOnline(Boolean statusOnline) {
         this.statusOnline = statusOnline;
         return this;
     }
