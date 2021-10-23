@@ -13,6 +13,8 @@
 <h4>Logged in users: </h4>
 <div th:each="user : ${users}">
     <p th:utext="${user.profile.userName.username}">user</p>
+    <a th:href="@{/edit/{id}(id=${user.id})}">Edit</a>
+    <a th:href="@{/delete/{id}(id=${user.id})}">Delete</a>
 </div>
 </body>
 </html>

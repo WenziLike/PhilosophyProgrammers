@@ -7,6 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -43,15 +44,26 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @GetMapping("/edit")
-    public String showEditForm(User user, ModelMap modelMap) {
+    @GetMapping("/edit/{id}")
+    public String showUpdateForm(@PathVariable("id") Long id, ModelMap modelMap) {
+        Optional<User> user = userServiceImpl.findById(id);
+
         modelMap.addAttribute("user", user);
         return "edit-user";
     }
 
-    @PostMapping("/edit")
-    public String updateUser( @ModelAttribute("user") User user) {
-        userServiceImpl.editUser(user);
+    @PostMapping("/edit/{id}")
+    public String updateUser(
+            @PathVariable(value = "id") long id,
+            @ModelAttribute("user") User user,ModelMap modelMap) {
+        User userFromDb = userServiceImpl.findById(id).orElseThrow();
+
+        userFromDb.setFirstName(user.getFirstName());
+        user.setLastName(user.getLastName());
+
+        userServiceImpl.createdNewUser(user);
+
+//        userServiceImpl.editUser(user);
         return "redirect:/users";
     }
 }
