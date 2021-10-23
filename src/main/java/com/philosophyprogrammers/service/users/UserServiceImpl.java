@@ -1,7 +1,8 @@
-package com.philosophyprogrammers.service;
+package com.philosophyprogrammers.service.users;
 
 import com.philosophyprogrammers.entity.User;
 import com.philosophyprogrammers.repository.UserRepository;
+import com.philosophyprogrammers.service.users.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,32 +24,46 @@ public class UserServiceImpl implements UserService {
 //    }
 
     // ================================================
-
+   /**
+    *     CREATE
+    *
+   * */
     @Override
     public User createdNewUser(User account) {
         return userRepository.save(account);
     }
 
-    @Override
-    public User editUser(User user) {
-        return userRepository.save(user);
-    }
-//
 //    @Override
-//    public void deleteUser(long id) {
-//        userRepository.delete(id);
+//    public User editUser(User user) {
+//        return userRepository.save(user);
 //    }
 
+    /**
+     *     GET ALL
+     *
+     * */
     @Override
     public List<User> getAll() {
         return userRepository.findAll();
     }
 
+    /**
+     *     FIND BY ID
+     *
+     * */
     @Override
     public Optional<User> findById(long id) {
         return userRepository.findById(id);
     }
 
-    // ================================================
+    /**
+     *     DELETED User
+     *
+     * */
+    @Override
+    public void deleteUser(User user) {
+        userRepository.deleteById(user.getId());
+    }
+// ================================================
 
 }

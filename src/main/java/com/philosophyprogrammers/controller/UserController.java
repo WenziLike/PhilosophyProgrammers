@@ -1,7 +1,7 @@
 package com.philosophyprogrammers.controller;
 
 import com.philosophyprogrammers.entity.User;
-import com.philosophyprogrammers.service.UserServiceImpl;
+import com.philosophyprogrammers.service.users.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +16,6 @@ public class UserController {
 
     public UserController(UserServiceImpl userServiceImpl) {
         this.userServiceImpl = userServiceImpl;
-    }
-
-    @GetMapping("/")
-    public String home() {
-        return "home";
     }
 
     @GetMapping("/users")
@@ -55,7 +50,7 @@ public class UserController {
     @PostMapping("/edit/{id}")
     public String updateUser(
             @PathVariable(value = "id") long id,
-            @ModelAttribute("user") User user,ModelMap modelMap) {
+            @ModelAttribute("user") User user, ModelMap modelMap) {
         User userFromDb = userServiceImpl.findById(id).orElseThrow();
 
         userFromDb.setFirstName(user.getFirstName());
@@ -64,6 +59,14 @@ public class UserController {
         userServiceImpl.createdNewUser(user);
 
 //        userServiceImpl.editUser(user);
+        return "redirect:/users";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") long id, ModelMap modelMap) {
+        User user = userServiceImpl.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        userServiceImpl.deleteUser(user);
         return "redirect:/users";
     }
 }
