@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @PostMapping("/edit")
-    public String updateTodo( @ModelAttribute("user") User user) {
+    public String updateUser( @ModelAttribute("user") User user) {
         userServiceImpl.editUser(user);
         return "redirect:/users";
     }
