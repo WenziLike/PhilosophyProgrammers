@@ -1,10 +1,11 @@
 package com.philosophyprogrammers.modules.article;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
 public class ArticleTitle {
-
+    @Column(nullable = false)
     private String title;
     private String slug;
 

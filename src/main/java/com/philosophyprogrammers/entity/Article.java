@@ -1,6 +1,8 @@
 package com.philosophyprogrammers.entity;
 
 import com.philosophyprogrammers.modules.article.ArticleContents;
+import com.philosophyprogrammers.modules.article.ArticleTitle;
+import com.philosophyprogrammers.modules.user.UserName;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -38,6 +40,48 @@ public class Article {
     public Article(ArticleContents contents, User author) {
         this.contents = contents;
         this.author = author;
+    }
+    //==========================================
+
+    /**
+     * todo как лучше получить в Html
+     */
+    public ArticleTitle getContentsTitle() {
+        return contents.getTitle();
+    }
+
+    public String getContentsDescription() {
+        return contents.getDescription();
+    }
+
+    public String getContentsBody() {
+        return contents.getBody();
+    }
+
+    public Article setContentsTitle(ArticleTitle title) {
+//        return contents.setTitle(title);
+        this.contents.setTitle(title);
+        return this;
+    }
+
+    public Article setContentsDescription(String description) {
+        this.contents.setDescription(description);
+        return this;
+    }
+
+    public Article setContentsBody(String body) {
+        this.contents.setBody(body);
+        return this;
+    }
+    //==========================================
+
+    public Long getId() {
+        return id;
+    }
+
+    public Article setId(Long id) {
+        this.id = id;
+        return this;
     }
 
     public ArticleContents getContents() {
