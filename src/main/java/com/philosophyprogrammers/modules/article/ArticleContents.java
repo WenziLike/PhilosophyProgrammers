@@ -7,7 +7,7 @@ import javax.persistence.Embedded;
 @Embeddable
 public class ArticleContents {
     @Embedded
-    private ArticleTitle title;
+    private ArticleTitle value;
 
     @Column(nullable = false)
     private String description;
@@ -19,18 +19,18 @@ public class ArticleContents {
     public ArticleContents() {
     }
 
-    public ArticleContents(ArticleTitle title, String description, String body) {
-        this.title = title;
+    public ArticleContents(ArticleTitle value, String description, String body) {
+        this.value = value;
         this.description = description;
         this.body = body;
     }
 
-    public ArticleTitle getTitle() {
-        return title;
+    public ArticleTitle getValue() {
+        return value;
     }
 
-    public ArticleContents setTitle(ArticleTitle title) {
-        this.title = title;
+    public ArticleContents setValue(ArticleTitle value) {
+        this.value = value;
         return this;
     }
 
@@ -55,7 +55,7 @@ public class ArticleContents {
     @Override
     public String toString() {
         return "ArticleContents{" +
-                "title=" + title +
+                "title=" + value +
                 ", description='" + description + '\'' +
                 ", body='" + body + '\'' +
                 '}';
