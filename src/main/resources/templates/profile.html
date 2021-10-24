@@ -6,13 +6,12 @@
 </head>
 <body>
 <a href="/">Home</a>
-<a href="/newPost">Write a story</a>
-<a href="/signup">Registration</a>
 <hr>
 <h1>Users</h1>
 <h4>Logged in users: </h4>
 <div th:each="user : ${users}">
   <p th:utext="${user.userProfile}"></p>
+  <a th:href="@{/newPost/user/{id}(id=${user.id})}">Write a story</a>
   <a th:href="@{/edit/user/{id}(id=${user.id})}">Edit</a>
   <a th:href="@{/delete/user/{id}(id=${user.id})}">Delete</a>
 </div>
