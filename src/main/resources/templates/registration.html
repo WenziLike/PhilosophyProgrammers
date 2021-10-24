@@ -19,42 +19,46 @@
 </style>
 <body>
 <div class="container">
-  <h1 class="text-center mt-3 ">Registration</h1>
-  <form class="row g-3 text-center" th:object="${user}" method="post">
-    <div class="flex-column d-flex justify-content-center align-items-center">
-      <div class="col-md-4">
-        <label for="inputEmail1" class="form-label"></label>
-        <input type="text" class="form-control" id="inputEmail1" placeholder="first name" th:field="*{firstName}">
-      </div>
-      <div class="col-md-4">
-        <label for="inputPassword2" class="form-label"></label>
-        <input type="text" class="form-control" id="inputPassword2" placeholder="last name" th:field="*{lastName}">
-      </div>
-      <div class="col-md-4">
-        <label for="inputEmail3" class="form-label"></label>
-        <input type="text" class="form-control" id="inputEmail3" placeholder="username"
-               th:field="*{profile.userName.username}">
-      </div>
-      <div class="col-md-4">
-        <label for="inputPassword4" class="form-label"></label>
-        <input type="email" class="form-control" id="inputPassword4" placeholder="Email" th:field="*{email}">
-      </div>
-      <div class="col-md-4">
-        <label for="inputEmail5" class="form-label"></label>
-        <input type="password" class="form-control" id="inputEmail5" placeholder="password" th:field="*{password}">
-      </div>
-      <div class="col-md-4">
-        <label for="inputPassword6" class="form-label"></label>
-        <input type="password" class="form-control" id="inputPassword6" placeholder="confirm"
-               th:field="*{matchingPassword}">
-      </div>
-      <div class="col-12 text-center mt-3">
-        <button type="submit" class="btn btn-outline-dark">Register</button>
+  <div class="row">
+    <div class="">
+      <h1 class="text-center mt-3">Registration</h1>
+      <form class="row text-center box h-100 d-flex justify-content-center flex-column" th:object="${user}" method="post">
+        <div class="flex-column d-flex justify-content-center align-items-center">
+          <div class="col-md-4">
+            <label for="inputEmail1" class="form-label"></label>
+            <input type="text" class="form-control" id="inputEmail1" placeholder="first name" th:field="*{firstName}">
+          </div>
+          <div class="col-md-4">
+            <label for="inputPassword2" class="form-label"></label>
+            <input type="text" class="form-control" id="inputPassword2" placeholder="last name" th:field="*{lastName}">
+          </div>
+          <div class="col-md-4">
+            <label for="inputEmail3" class="form-label"></label>
+            <input type="text" class="form-control" id="inputEmail3" placeholder="username"
+                   th:field="*{profile.userName.username}">
+          </div>
+          <div class="col-md-4">
+            <label for="inputPassword4" class="form-label"></label>
+            <input type="email" class="form-control" id="inputPassword4" placeholder="Email" th:field="*{email}">
+          </div>
+          <div class="col-md-4">
+            <label for="inputEmail5" class="form-label"></label>
+            <input type="password" class="form-control" id="inputEmail5" placeholder="password" th:field="*{password}">
+          </div>
+          <div class="col-md-4">
+            <label for="inputPassword6" class="form-label"></label>
+            <input type="password" class="form-control" id="inputPassword6" placeholder="confirm"
+                   th:field="*{matchingPassword}">
+          </div>
+          <div class="col-12 text-center mt-3">
+            <button type="submit" class="btn btn-outline-dark">Register</button>
+          </div>
+        </div>
+      </form>
+      <div class="text-center mt-3">
+        Already have an account? <a href="#"><strong>Sign in</strong></a>
       </div>
     </div>
-  </form>
-  <div class="text-center mt-3">
-    Already have an account? <a href="#"><strong>Sign in</strong></a>
   </div>
 </div>
 </body>
