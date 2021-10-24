@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class ArticleController {
@@ -44,12 +43,12 @@ public class ArticleController {
 
     @GetMapping("/edit/article/{id}")
     public String showUpdateFormArticle(
-            @PathVariable("id") Long id,
-            Article article,
+            @PathVariable("id") long id,
             ModelMap modelMap) {
-        Optional<Article> post = articleServiceImpl.findById(id);
+        Article article = articleServiceImpl.findById(id)
+                .orElseThrow();
 
-        modelMap.addAttribute("article", post);
+        modelMap.addAttribute("article", article);
         return "edit-article";
     }
 

@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Registration</title>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Registration</title>
 </head>
 <style>
     div {
@@ -14,32 +14,32 @@
 </style>
 <body>
 <h2>Registration</h2>
-<form action="" th:object="${user}" method="post">
-    <div>
-        <label>First Name</label>
-        <input th:field="*{firstName}"/>
-    </div>
-    <div>
-        <label>Last Name</label>
-        <input th:field="*{lastName}"/>
-    </div>
-    <div>
-        <label>Username</label>
-        <input th:field="*{profile.userName.username}"/>
-    </div>
-    <div>
-        <label>Email</label>
-        <input type="email" th:field="*{email}"/>
-    </div>
-    <div>
-        <label>Password</label>
-        <input th:field="*{password}"/>
-    </div>
-    <div>
-        <label>Confirm</label>
-        <input th:field="*{matchingPassword}"/>
-    </div>
-    <input type="submit">
+<form th:object="${user}" method="post">
+  <div>
+    <label>First Name</label>
+    <input th:field="*{firstName}"/>
+  </div>
+  <div>
+    <label>Last Name</label>
+    <input th:field="*{lastName}"/>
+  </div>
+  <div>
+    <label>Username</label>
+    <input th:field="*{profile.userName.username}"/>
+  </div>
+  <div>
+    <label>Email</label>
+    <input type="email" th:field="*{email}"/>
+  </div>
+  <div>
+    <label>Password</label>
+    <input th:field="*{password}"/>
+  </div>
+  <div>
+    <label>Confirm</label>
+    <input th:field="*{matchingPassword}"/>
+  </div>
+  <input type="submit">
 </form>
 </body>
 </html>

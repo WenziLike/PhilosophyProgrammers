@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>User</title>
+  <meta charset="UTF-8">
+  <title>User</title>
 </head>
 <body>
 <a href="/">Home</a>
-<a href="/write-post">Write a story</a>
+<a href="/newPost">Write a story</a>
 <a href="/signup">Registration</a>
 <hr>
 <h1>Users</h1>
 <h4>Logged in users: </h4>
 <div th:each="user : ${users}">
-    <p th:utext="${user.profile.userName.username}">user</p>
-    <a th:href="@{/edit/{id}(id=${user.id})}">Edit</a>
-    <a th:href="@{/delete/{id}(id=${user.id})}">Delete</a>
+  <p th:utext="${user.userProfile}"></p>
+  <a th:href="@{/edit/user/{id}(id=${user.id})}">Edit</a>
+  <a th:href="@{/delete/user/{id}(id=${user.id})}">Delete</a>
 </div>
 </body>
 </html>

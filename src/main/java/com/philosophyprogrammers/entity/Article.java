@@ -2,14 +2,11 @@ package com.philosophyprogrammers.entity;
 
 import com.philosophyprogrammers.modules.article.ArticleContents;
 import com.philosophyprogrammers.modules.article.ArticleTitle;
-import com.philosophyprogrammers.modules.user.UserName;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.time.Instant;
-
-import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Table(name = "articles")
@@ -22,8 +19,8 @@ public class Article {
     @Embedded
     private ArticleContents contents;
 
-    @JoinColumn(name = "author_id", referencedColumnName = "id", nullable = false)
-    @ManyToOne(fetch = EAGER)
+    @JoinColumn(nullable = false)
+    @ManyToOne
     private User author;
 
     @Column(name = "created_at")
@@ -41,39 +38,6 @@ public class Article {
         this.contents = contents;
         this.author = author;
     }
-    //==========================================
-
-    /**
-     * todo как лучше получить в Html
-     */
-    public ArticleTitle getContentsTitle() {
-        return contents.getTitle();
-    }
-
-    public String getContentsDescription() {
-        return contents.getDescription();
-    }
-
-    public String getContentsBody() {
-        return contents.getBody();
-    }
-
-    public Article setContentsTitle(ArticleTitle title) {
-//        return contents.setTitle(title);
-        this.contents.setTitle(title);
-        return this;
-    }
-
-    public Article setContentsDescription(String description) {
-        this.contents.setDescription(description);
-        return this;
-    }
-
-    public Article setContentsBody(String body) {
-        this.contents.setBody(body);
-        return this;
-    }
-    //==========================================
 
     public Long getId() {
         return id;
@@ -119,6 +83,48 @@ public class Article {
         this.updatedAt = updatedAt;
         return this;
     }
+
+    //==========================================
+
+    /**
+     * todo как лучше получить в Html
+     */
+    public ArticleTitle getContentsTitle() {
+        return contents.getValue();
+    }
+
+    public String getContentsDescription() {
+        return contents.getDescription();
+    }
+
+    public String getContentsBody() {
+        return contents.getBody();
+    }
+
+    public Article setContentsTitle(ArticleTitle title) {
+//        return contents.setTitle(title);
+        this.contents.setValue(title);
+        return this;
+    }
+
+    public Article setContentsDescription(String description) {
+        this.contents.setDescription(description);
+        return this;
+    }
+
+    public Article setContentsBody(String body) {
+        this.contents.setBody(body);
+        return this;
+    }
+    //==========================================
+
+    public String post() {
+        return contents.getValue().getTitle()
+                + contents.getDescription()
+                + contents.getBody() + createdAt +
+                author.getUserName().getUsername();
+    }
+    //==========================================
 
     @Override
     public String toString() {

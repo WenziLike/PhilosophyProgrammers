@@ -7,7 +7,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class UserController {
@@ -34,38 +33,40 @@ public class UserController {
 
     @PostMapping("/signup")
     public String createdNewUser(@ModelAttribute("user") User user) {
-
         userServiceImpl.createdNewUser(user);
         return "redirect:/users";
     }
 
-    @GetMapping("/edit/{id}")
-    public String showUpdateForm(@PathVariable("id") Long id, ModelMap modelMap) {
-        Optional<User> user = userServiceImpl.findById(id);
+    @GetMapping("/edit/user/{id}")
+    public String showUpdateFormUser(
+            @PathVariable("id") long id,
+            ModelMap modelMap) {
+        User user = userServiceImpl.findById(id)
+                .orElseThrow();
 
         modelMap.addAttribute("user", user);
         return "edit-user";
     }
 
-    @PostMapping("/edit/{id}")
+    @PostMapping("/edit/user/{id}")
     public String updateUser(
             @PathVariable(value = "id") long id,
-            @ModelAttribute("user") User user, ModelMap modelMap) {
+            @ModelAttribute("user")
+            User user) {
         User userFromDb = userServiceImpl.findById(id).orElseThrow();
 
         userFromDb.setFirstName(user.getFirstName());
-        user.setLastName(user.getLastName());
-
-        userServiceImpl.createdNewUser(user);
+        userFromDb.setLastName(user.getLastName());
 
 //        userServiceImpl.editUser(user);
+        userServiceImpl.createdNewUser(user);
         return "redirect:/users";
     }
 
-    @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") long id, ModelMap modelMap) {
+    @GetMapping("/delete/user/{id}")
+    public String deleteUser(@PathVariable("id") long id) {
         User user = userServiceImpl.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid article Id:" + id));
         userServiceImpl.deleteUser(user);
         return "redirect:/users";
     }

@@ -14,20 +14,20 @@
 </style>
 <body>
 <h2>New Post</h2>
-<form th:action="@{/edit/article/{id}(id=${article.get().getId()})}"
+<form action="#" th:action="@{/edit/article/{id}(id=${article.id})}"
       th:object="${article}"
       method="post">
   <div>
     <label>Title</label>
-    <input th:field="*{get().contents.title}"/>
+    <input th:field="*{contents.value.title}"/>
   </div>
   <div>
     <label>Description</label>
-    <input th:field="*{get().contents.description}"/>
+    <input th:field="*{contents.description}"/>
   </div>
   <div>
     <label>Body</label>
-    <input th:field="*{get().contents.body}"/>
+    <input th:field="*{contents.body}"/>
   </div>
   <input type="submit">
 </form>

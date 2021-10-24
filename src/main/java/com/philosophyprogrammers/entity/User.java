@@ -43,16 +43,6 @@ public class User {
         this.profile = profile;
     }
 
-    /**
-     * todo как лучше получить в Html
-     */
-    public UserName getUserName() {
-        return profile.getUserName();
-    }
-
-    //==========================================
-
-
     public Long getId() {
         return id;
     }
@@ -114,6 +104,20 @@ public class User {
     public User setProfile(Profile profile) {
         this.profile = profile;
         return this;
+    }
+    //==========================================
+
+    /**
+     * todo как лучше получить в Html
+     */
+    public UserName getUserName() {
+        return profile.getUserName();
+    }
+
+    //==========================================
+    public String userProfile() {
+        return firstName + lastName + profile.getUserName() +
+                profile.getImage() + email;
     }
 
     @Override

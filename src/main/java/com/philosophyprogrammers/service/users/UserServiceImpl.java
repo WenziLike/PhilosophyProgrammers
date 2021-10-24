@@ -2,7 +2,6 @@ package com.philosophyprogrammers.service.users;
 
 import com.philosophyprogrammers.entity.User;
 import com.philosophyprogrammers.repository.UserRepository;
-import com.philosophyprogrammers.service.users.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
