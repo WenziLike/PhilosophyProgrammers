@@ -15,6 +15,10 @@
 <style>
     body {
         font-family: 'Poppins', sans-serif;
+        margin: 0;
+    }
+    h1{
+        margin: 0;
     }
 </style>
 <body>
@@ -35,7 +39,7 @@
           <div class="col-md-4">
             <label for="inputEmail3" class="form-label"></label>
             <input type="text" class="form-control" id="inputEmail3" placeholder="username"
-                   th:field="*{profile.userName.username}">
+                   th:field="*{profile.userName.name}">
           </div>
           <div class="col-md-4">
             <label for="inputPassword4" class="form-label"></label>
@@ -55,8 +59,8 @@
           </div>
         </div>
       </form>
-      <div class="text-center mt-3">
-        Already have an account? <a href="#"><strong>Sign in</strong></a>
+      <div class="text-center">
+        Already have an account? <a href="/login"><strong>Sign in</strong></a>
       </div>
     </div>
   </div>

@@ -90,7 +90,7 @@ public class Article {
      * todo как лучше получить в Html
      */
     public ArticleTitle getContentsTitle() {
-        return contents.getValue();
+        return contents.getArticleTitle();
     }
 
     public String getContentsDescription() {
@@ -103,7 +103,7 @@ public class Article {
 
     public Article setContentsTitle(ArticleTitle title) {
 //        return contents.setTitle(title);
-        this.contents.setValue(title);
+        this.contents.setArticleTitle(title);
         return this;
     }
 
@@ -119,10 +119,9 @@ public class Article {
     //==========================================
 
     public String post() {
-        return contents.getValue().getTitle()
+        return contents.getArticleTitle().getTitle()
                 + contents.getDescription()
-                + contents.getBody() + createdAt +
-                author.getUserName().getUsername();
+                + contents.getBody() + createdAt;
     }
     //==========================================
 
