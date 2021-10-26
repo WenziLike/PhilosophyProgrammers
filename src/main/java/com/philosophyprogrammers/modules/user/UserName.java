@@ -5,23 +5,23 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class UserName {
 
-    private String username;
+    private String name;
     private Boolean statusOnline;
 
     public UserName() {
     }
 
-    public UserName(String username, Boolean statusOnline) {
-        this.username = username;
+    public UserName(String name, Boolean statusOnline) {
+        this.name = name;
         this.statusOnline = statusOnline;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public UserName setUsername(String username) {
-        this.username = username;
+    public UserName setName(String name) {
+        this.name = name;
         return this;
     }
 
@@ -37,7 +37,7 @@ public class UserName {
     @Override
     public String toString() {
         return "UserName{" +
-                "username='" + username + '\'' +
+                "username='" + name + '\'' +
                 ", statusOnline=" + statusOnline +
                 '}';
     }
