@@ -1,29 +1,27 @@
 package com.philosophyprogrammers.modules.user;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
 
 @Embeddable
 public class Profile {
 
-    @Embedded
-    private UserName userName;
+    private String username;
     private String image;
 
     public Profile() {
     }
 
-    public Profile(UserName userName, String image) {
-        this.userName = userName;
+    public Profile(String username, String image) {
+        this.username = username;
         this.image = image;
     }
 
-    public UserName getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public Profile setUserName(UserName userName) {
-        this.userName = userName;
+    public Profile setUsername(String username) {
+        this.username = username;
         return this;
     }
 
@@ -34,13 +32,5 @@ public class Profile {
     public Profile setImage(String image) {
         this.image = image;
         return this;
-    }
-
-    @Override
-    public String toString() {
-        return "Profile{" +
-                "userName=" + userName +
-                ", image='" + image + '\'' +
-                '}';
     }
 }

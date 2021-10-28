@@ -15,7 +15,7 @@
 <body>
 <h2>Edit User</h2>
 <form th:object="${user}"
-      th:action="@{/edit/user/{id}(id=${user.id})}"
+      th:action="@{/profile/user/{id}(id=${user.id})}"
       method="post">
   <div>
     <label>First Name</label>
@@ -27,7 +27,7 @@
   </div>
   <div>
     <label>Username</label>
-    <input th:field="*{profile.userName.name}"/>
+    <input th:field="*{profile.username}"/>
   </div>
   <div>
     <label>Email</label>

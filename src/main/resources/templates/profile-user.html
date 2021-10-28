@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile</title>
+</head>
+<body>
+<hr>
+<h1>Profile</h1>
+<a href="/users">Come back to Users</a>
+
+<div>
+  <p th:text="${user.firstName}"></p>
+  <p th:text="${user.lastName}"></p>
+  <p th:text="${user.profile.username}"></p>
+  <p th:text="${user.email}"></p>
+  <p th:text="${user.password}"></p>
+  <p th:text="${user.matchingPassword}"></p>
+  <hr>
+  <a th:href="@{/newPost/user/{id}(id=${user.id})}">Write a story</a>
+  <a th:href="@{/edit/user/{id}(id=${user.id})}">Edit</a>
+  <a th:href="@{/delete/user/{id}(id=${user.id})}">Delete</a>
+</div>
+</body>
+</html>

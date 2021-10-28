@@ -23,42 +23,34 @@ public class UserServiceImpl implements UserService {
 //    }
 
     // ================================================
-   /**
-    *     CREATE
-    *
-   * */
+
+    /**
+     * CREATE
+     */
     @Override
     public User createdNewUser(User account) {
         return userRepository.save(account);
     }
 
-//    @Override
-//    public User editUser(User user) {
-//        return userRepository.save(user);
-//    }
-
     /**
-     *     GET ALL
-     *
-     * */
+     * GET ALL
+     */
     @Override
     public List<User> getAll() {
         return userRepository.findAll();
     }
 
     /**
-     *     FIND BY ID
-     *
-     * */
+     * FIND BY ID
+     */
     @Override
     public Optional<User> findById(long id) {
         return userRepository.findById(id);
     }
 
     /**
-     *     DELETED User
-     *
-     * */
+     * DELETED User
+     */
     @Override
     public void deleteUser(User user) {
         userRepository.deleteById(user.getId());

@@ -1,7 +1,6 @@
 package com.philosophyprogrammers.entity;
 
 import com.philosophyprogrammers.modules.user.Profile;
-import com.philosophyprogrammers.modules.user.UserName;
 
 import javax.persistence.*;
 
@@ -9,7 +8,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user_account")
 public class User {
-
 
     @Id
     @Column(unique = true, nullable = false)
@@ -21,10 +19,14 @@ public class User {
     private String email;
     private String password;
     private String matchingPassword;
+    private boolean active;
 
     @Embedded
     private Profile profile;
 
+    /**
+     * ================ Constructor
+     */
     public User() {
     }
 
@@ -33,16 +35,38 @@ public class User {
                 String email,
                 String password,
                 String matchingPassword,
+                boolean active,
                 Profile profile) {
-
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.matchingPassword = matchingPassword;
+        this.active = active;
         this.profile = profile;
     }
 
+    public User(Long id,
+                String firstName,
+                String lastName,
+                String email,
+                String password,
+                String matchingPassword,
+                boolean active,
+                Profile profile) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.matchingPassword = matchingPassword;
+        this.active = active;
+        this.profile = profile;
+    }
+
+    /**
+     * ================ Getters and Setters
+     */
     public Long getId() {
         return id;
     }
@@ -97,6 +121,15 @@ public class User {
         return this;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public User setActive(boolean active) {
+        this.active = active;
+        return this;
+    }
+
     public Profile getProfile() {
         return profile;
     }
@@ -105,20 +138,15 @@ public class User {
         this.profile = profile;
         return this;
     }
-    //==========================================
-
-    /**
-     * todo как лучше получить в Html
-     */
-    public UserName getUserName() {
-        return profile.getUserName();
-    }
 
     //==========================================
-    public String userProfile() {
-        return firstName + lastName + profile.getUserName() +
-                profile.getImage() + email;
-    }
+
+    //==========================================
+//    public String userProfile() {
+//        return firstName + lastName + profile.getUsername() +
+//                profile.getImage() + email;
+//    }
+
 
     @Override
     public String toString() {
@@ -129,6 +157,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", matchingPassword='" + matchingPassword + '\'' +
+                ", active=" + active +
                 ", profile=" + profile +
                 '}';
     }

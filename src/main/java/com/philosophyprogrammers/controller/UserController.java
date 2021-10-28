@@ -17,6 +17,9 @@ public class UserController {
         this.userServiceImpl = userServiceImpl;
     }
 
+    /**
+     * ================ View all users
+     */
     @GetMapping("/users")
     public String users(ModelMap modelMap) {
         List<User> users = userServiceImpl.getAll();
@@ -24,50 +27,48 @@ public class UserController {
         return "users";
     }
 
-
-    @GetMapping("/signup")
-    public String showRegistrationForm(User user, ModelMap modelMap) {
+    /**
+     * ================ View Profile User
+     */
+    @GetMapping("/profile/user/{id}")
+    public String showProfileUser(
+            @PathVariable("id") long id,
+            ModelMap modelMap) {
+        User user = userServiceImpl.findById(id)
+                .orElseThrow();
         modelMap.addAttribute("user", user);
-        return "registration";
+        return "profile-user";
     }
 
-    @PostMapping("/signup")
-    public String createdNewUser(@ModelAttribute("user") User user) {
-        userServiceImpl.createdNewUser(user);
-        return "redirect:/users";
-    }
-
+    /**
+     * ================ Update User Profile
+     */
     @GetMapping("/edit/user/{id}")
     public String showUpdateFormUser(
             @PathVariable("id") long id,
             ModelMap modelMap) {
         User user = userServiceImpl.findById(id)
                 .orElseThrow();
-
         modelMap.addAttribute("user", user);
         return "edit-user";
     }
 
-    @PostMapping("/edit/user/{id}")
+    @PostMapping("/profile/user/{id}")
     public String updateUser(
             @PathVariable(value = "id") long id,
-            @ModelAttribute("user")
-            User user) {
-        User userFromDb = userServiceImpl.findById(id).orElseThrow();
-
-        userFromDb.setFirstName(user.getFirstName());
-        userFromDb.setLastName(user.getLastName());
-
-//        userServiceImpl.editUser(user);
+            @ModelAttribute("user") User user) {
         userServiceImpl.createdNewUser(user);
-        return "redirect:/users";
+        return "profile-user";
     }
 
+    /**
+     * ================ Delete User Account
+     */
     @GetMapping("/delete/user/{id}")
     public String deleteUser(@PathVariable("id") long id) {
         User user = userServiceImpl.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid article Id:" + id));
         userServiceImpl.deleteUser(user);
-        return "redirect:/users";
+        return "redirect:/";
     }
 }

@@ -26,7 +26,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
   <div class="container-fluid">
-    <a class="navbar-brand col-8" href="#">
+    <a class="navbar-brand col-7" href="#">
       <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-reddit"
            viewBox="0 0 16 16">
         <path
@@ -41,6 +41,9 @@
     </button>
     <div class="navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/users">Users Online</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/newPost">Write a story</a>
         </li>
@@ -69,10 +72,12 @@
         <p class="card-text" th:utext="${article.contents.description}"></p>
         <p class="card-text" th:utext="${article.contents.body}"></p>
         <div class="mb-3">
-          <button type="button" th:href="@{/edit/article/{id}(id=${article.id})}" class="btn btn-outline-primary d-inline  mr-3">
+          <button type="button" th:href="@{/edit/article/{id}(id=${article.id})}"
+                  class="btn btn-outline-primary d-inline  mr-3">
             Edit
           </button>
-          <button type="button" th:href="@{/delete/article/{id}(id=${article.id})}" class="btn btn-outline-danger d-inline  mr-3">
+          <button type="button" th:href="@{/delete/article/{id}(id=${article.id})}"
+                  class="btn btn-outline-danger d-inline  mr-3">
             Delete
           </button>
         </div>
