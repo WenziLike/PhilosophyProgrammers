@@ -7,7 +7,10 @@
 <body>
 <a href="/">Home</a>
 <hr>
-<h1>All Users</h1>
+<h1>View All Users: </h1>
+<div th:if="${users.isEmpty}">
+  <strong>No post</strong>
+</div>
 <h4>Logged in users: </h4>
 <div th:each="user : ${users}">
   <strong th:utext="${user.profile.username}"></strong>
