@@ -1,27 +1,21 @@
 package com.philosophyprogrammers.dto;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 
 public class UserDTO implements Serializable {
 
-    @NotEmpty(message = "No first name")
+    @NotEmpty(message = "First Name can not be empty")
     private String firstName;
-
-    @NotEmpty(message = "{registration.validation.lastname}")
+    @NotEmpty(message = "Last Name can not be empty")
     private String lastName;
-
-    @NotEmpty(message = "{validation.username}")
+    @NotEmpty(message = "Username can not be empty")
     private String username;
-
     private String image;
 
-    //    @Email(message = "NNOOO")
-    @Email(message = "please provide a valid email id")
+    @Email(message = "Please provide a valid email id")
     private String email;
-
-    @NotEmpty(message = "{registration.validation.password}")
+    @NotEmpty(message = "Password can not be empty")
     private String password;
     private String confirmPassword;
     private boolean active;
@@ -97,5 +91,19 @@ public class UserDTO implements Serializable {
     public UserDTO setActive(boolean active) {
         this.active = active;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", image='" + image + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                ", active=" + active +
+                '}';
     }
 }
