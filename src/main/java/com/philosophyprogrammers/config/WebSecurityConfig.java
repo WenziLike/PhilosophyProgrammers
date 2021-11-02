@@ -14,11 +14,9 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final PasswordEncoder passwordEncoder;
     private final DataSource dataSource;
 
-    public WebSecurityConfig(PasswordEncoder passwordEncoder, DataSource dataSource) {
-        this.passwordEncoder = passwordEncoder;
+    public WebSecurityConfig(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -36,16 +34,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .usersByUsernameQuery("select username, password, active from usr where username=?")
-                .authoritiesByUsernameQuery("select u.username, ur.roles from usr u inner join user_role ur on u.id " +
-                        "= ur.user_id where u.username=?");
-
     }
 }
