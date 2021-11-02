@@ -26,47 +26,63 @@
 <div class="container">
   <div class="row">
     <div class="">
-      <h1 class="text-center mt-3">Registration</h1>
-      <form class="row text-center box h-100 d-flex justify-content-center flex-column" th:action="@{/registration}" th:object="${userDto}"
+      <h1 class="text-center mt-3 mb-3">Registration</h1>
+<!--      <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">-->
+<!--        <p th:each="err : ${#fields.errors('*')}" th:text="${err}" th:style="'color:red'"></p>-->
+<!--      </div>-->
+
+      <div class="text-center mb-3">
+        Already have an account? <a href="/login"><strong>Sign in</strong></a>
+      </div>
+      <form class="row text-center box d-flex justify-content-center flex-column" th:action="@{/registration}"
+            th:object="${userDTO}"
             method="post">
+
         <div class="flex-column d-flex justify-content-center align-items-center">
-          <div class="col-md-4">
-            <label for="inputEmail1" class="form-label"></label>
-            <input type="text" class="form-control" id="inputEmail1" placeholder="first name" th:field="*{firstName}">
+          <div class="col-md-4 mb-3">
+            <input type="text" class="form-control" th:field="*{firstName}" placeholder="First Name">
+            <strong th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:style="'color:red'"></strong>
           </div>
-          <div class="col-md-4">
-            <label for="inputPassword2" class="form-label"></label>
-            <input type="text" class="form-control" id="inputPassword2" placeholder="last name" th:field="*{lastName}">
+
+          <div class="col-md-4 mb-3">
+            <input type="text" class="form-control" th:field="*{lastName}" placeholder="Last name">
+            <strong th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:style="'color:red'"></strong>
           </div>
-          <div class="col-md-4">
-            <label for="inputEmail3" class="form-label"></label>
-            <input type="text" class="form-control" id="inputEmail3" placeholder="username"
-                   th:field="*{username}">
+
+          <div class="col-md-4 mb-3">
+            <input type="text" class="form-control" th:field="*{username}" placeholder="Username">
+            <strong th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:style="'color:red'"></strong>
           </div>
-          <div class="col-md-4">
-            <label for="inputPassword4" class="form-label"></label>
-            <input type="email" class="form-control"
-                   id="inputPassword4" placeholder="Email"
-                   th:field="*{email}" th:errorclass="is-invalid">
-            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Age Error</span>
+
+          <div class="col-md-4 mb-3">
+            <input type="text" class="form-control" th:field="*{email}" placeholder="E-mail">
+            <strong th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:style="'color:red'"></strong>
           </div>
-          <div class="col-md-4">
-            <label for="inputEmail5" class="form-label"></label>
-            <input type="password" class="form-control" id="inputEmail5" placeholder="password" th:field="*{password}">
+
+          <div class="col-md-4 mb-3">
+            <input type="text" class="form-control" th:field="*{password}" placeholder="Password">
+            <strong th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:style="'color:red'"></strong>
           </div>
-          <div class="col-md-4">
-            <label for="inputPassword6" class="form-label"></label>
-            <input type="password" class="form-control" id="inputPassword6" placeholder="confirm"
-                   th:field="*{confirmPassword}">
+
+          <div class="col-md-4 mb-3">
+            <input type="text" class="form-control" th:field="*{confirmPassword}" placeholder="Retype password">
+            <strong th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"
+                    th:style="'color:red'"></strong>
           </div>
+
+          <div class="icheck-primary">
+            <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+            <label for="agreeTerms">
+              I agree to the <a href="#">terms</a>
+            </label>
+          </div>
+
           <div class="col-12 text-center mt-3">
             <button type="submit" class="btn btn-outline-dark">Register</button>
           </div>
+
         </div>
       </form>
-      <div class="text-center">
-        Already have an account? <a href="/login"><strong>Sign in</strong></a>
-      </div>
     </div>
   </div>
 </div>
