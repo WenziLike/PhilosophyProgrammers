@@ -1,0 +1,41 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--HEAD-->
+<head th:replace="coreApp/head :: head">
+  <title>Profile</title>
+</head>
+<body>
+
+<header th:replace="coreApp/header:: header">
+</header>
+
+<h1>Profile</h1>
+
+<br>
+<a href="/users">Come back to Users</a>
+<br>
+
+<div sec:authorize="isAuthenticated()">
+  <a href="javascript: document.logoutForm.submit()">Sign out</a>
+  <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+    <input hidden type="submit" value="Sign Out"/>
+  </form>
+</div>
+
+</body>
+</html>
+
+
+<!--<div>-->
+<!--  <p th:text="${userEntity.firstName}"></p>-->
+<!--  <p th:text="${userEntity.lastName}"></p>-->
+<!--  <p th:text="${userEntity.profile.username}"></p>-->
+<!--  <p th:text="${userEntity.email}"></p>-->
+<!--  <p th:text="${userEntity.password}"></p>-->
+<!--  <p th:text="${userEntity.matchingPassword}"></p>-->
+<!--  <hr>-->
+<!--  <a th:href="@{/newPost/userEntity/{id}(id=${userEntity.id})}">Write a story</a>-->
+<!--  <a th:href="@{/edit/userEntity/{id}(id=${userEntity.id})}">Edit</a>-->
+<!--  <a th:href="@{/delete/userEntity/{id}(id=${userEntity.id})}">Delete</a>-->
+<!--</div>-->
