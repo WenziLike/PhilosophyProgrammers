@@ -23,16 +23,11 @@ import javax.validation.Valid;
 public class RegisterAndLoginController {
 
     private UserServiceImpl userServiceImpl;
+    private static final String REDIRECT_LOGIN = "redirect:/login";
+
 
     public RegisterAndLoginController(UserServiceImpl userServiceImpl) {
         this.userServiceImpl = userServiceImpl;
-    }
-
-    private static final String REDIRECT_LOGIN = "redirect:/login";
-
-    @GetMapping("/")
-    public String showHomePage() {
-        return "../public/index";
     }
 
     /**
@@ -54,10 +49,11 @@ public class RegisterAndLoginController {
     @PostMapping("/registration")
     public String userRegistration(@Valid UserDTO userDTO, BindingResult bindingResult, ModelMap modelMap) {
 
-//        if (userDTO.getPassword() != null && !userDTO.getPassword().equals(userDTO.getConfirmPassword())) {
-//            modelMap.addAttribute("userDTO", "Passwords are different!");
-//            return "accountApp/registration";
-//        }
+        if (userDTO.getPassword() != null && !userDTO.getPassword().equals(userDTO.getConfirmPassword())) {
+            bindingResult.rejectValue("password", "password", "Passwords are different!");
+            modelMap.addAttribute("userDTO", userDTO);
+            return "accountApp/registration";
+        }
 
         if (bindingResult.hasErrors()) {
             modelMap.addAttribute("userDTO", userDTO);

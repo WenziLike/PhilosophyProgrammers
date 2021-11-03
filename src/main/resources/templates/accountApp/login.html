@@ -29,18 +29,23 @@
       <div class="text-center mb-3">
         New to profile? <a href="/registration"><strong>Create an account.</strong></a>
       </div>
+
+<!--      <p th:if="${loginError}" class="error">Wrong us email or password</p>-->
+
       <form class="row text-center box d-flex justify-content-center flex-column" th:action="@{/login}"
             th:object="${userDTO}"
             method="post">
-
+        <div th:if="${param.error}">
+          <div class="alert alert-danger">Invalid username or password</div>
+        </div>
         <div class="flex-column d-flex justify-content-center align-items-center">
 
           <div class="col-md-4 mb-3">
-            <input type="text" class="form-control" placeholder="E-mail">
+            <input type="email" class="form-control" name="username" placeholder="E-mail">
           </div>
 
           <div class="col-md-4 mb-3">
-            <input type="text" class="form-control" placeholder="Password">
+            <input type="password" class="form-control"  name="password" placeholder="Password">
           </div>
 
           <div class="icheck-primary">

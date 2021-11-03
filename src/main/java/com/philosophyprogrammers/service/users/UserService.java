@@ -1,18 +1,22 @@
 package com.philosophyprogrammers.service.users;
 
-import com.philosophyprogrammers.entity.User;
+import com.philosophyprogrammers.dto.UserDTO;
+import com.philosophyprogrammers.entity.UserEntity;
+import com.philosophyprogrammers.exceptions.UserAlreadyExistException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+/**
+ * Service class for {@link UserEntity}
+ *
+ * @author Viacheslav Murakhin
+ * @version 1.0
+ */
 
 @Service
 public interface UserService {
-    User createdNewUser(User account);
 
-    List<User> getAll();
+    void register(UserDTO userDTO) throws UserAlreadyExistException;
 
-    Optional<User> findById(long id);
+    boolean checkUserExist(String email);
 
-    void deleteUser(User user);
 }

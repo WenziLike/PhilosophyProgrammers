@@ -1,60 +1,50 @@
 package com.philosophyprogrammers.service.users;
 
-import com.philosophyprogrammers.entity.User;
+import com.philosophyprogrammers.dto.UserDTO;
+import com.philosophyprogrammers.entity.UserEntity;
+import com.philosophyprogrammers.exceptions.UserAlreadyExistException;
 import com.philosophyprogrammers.repository.UserRepository;
+import org.springframework.beans.BeanUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+/**
+ * Implementation of {@link UserService} interface
+ *
+ * @author Viacheslav Murakhin
+ * @version 1.0
+ */
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    // функция проверки Email на пустоту
-    // ================================================
-//    private boolean emailExists(Email email) {
-//        return userRepository.findUserByEmail(email) != null;
-//    }
-
-    // ================================================
-
-    /**
-     * CREATE
-     */
     @Override
-    public User createdNewUser(User account) {
-        return userRepository.save(account);
+    public void register(UserDTO userDTO) throws UserAlreadyExistException {
+
+        if(checkUserExist(userDTO.getEmail())){
+            throw new UserAlreadyExistException("User already exists for this email");
+        }
+
+        UserEntity userEntity = new UserEntity();
+        BeanUtils.copyProperties(userDTO, userEntity);
+        encodePassword(userEntity, userDTO);
+        userRepository.save(userEntity);
     }
 
-    /**
-     * GET ALL
-     */
     @Override
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public boolean checkUserExist(String email) {
+        return userRepository.findByEmail(email) != null;
     }
 
-    /**
-     * FIND BY ID
-     */
-    @Override
-    public Optional<User> findById(long id) {
-        return userRepository.findById(id);
+    private void encodePassword(UserEntity userEntity,UserDTO userDTO) {
+        userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
     }
-
-    /**
-     * DELETED User
-     */
-    @Override
-    public void deleteUser(User user) {
-        userRepository.deleteById(user.getId());
-    }
-// ================================================
-
 }
