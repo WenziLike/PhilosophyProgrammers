@@ -6,29 +6,36 @@
   <title>Write Story</title>
 </head>
 <body>
+
 <div class="container flex-column d-flex justify-content-center align-items-center">
   <h1 class="text-center mt-3 ">New post</h1>
   <a href="/">Come back</a>
-    <form class="row text-center mb-3"  method="post">
-      <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label"></label>
-        <input type="text" class="form-control"
-               id="exampleFormControlInput1" placeholder="Title">
-      </div>
-      <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label"></label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                  placeholder="Description" ></textarea>
-      </div>
-      <div class="mb-3">
-        <label for="exampleFormControlTextarea2" class="form-label"></label>
-        <textarea class="form-control" id="exampleFormControlTextarea2" rows="10" cols="60"
-                  placeholder="Write" ></textarea>
-      </div>
-      <div class="col-12 text-center mt-3">
-        <button type="submit" class="btn btn-outline-dark">Send post</button>
-      </div>
-    </form>
+
+<!--  <div class="errors" th:if="${#fields.hasErrors('errors')}"></div>-->
+
+  <form class="row text-center mb-3" th:action="@{/write}" method="post" th:object="${articleDTO}">
+    <div class="mb-3">
+      <strong th:if="${#fields.hasErrors('tag')}" th:errors="*{tag}" th:style="'color:#810101'"></strong>
+      <input type="text" class="form-control" placeholder="Tag" th:field="*{tag}">
+    </div>
+    <div class="mb-3">
+      <strong th:if="${#fields.hasErrors('title')}" th:errors="*{title}" th:style="'color:#810101'"></strong>
+      <input type="text" class="form-control" placeholder="Title" th:field="*{title}">
+    </div>
+    <div class="mb-3">
+      <strong th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+              th:style="'color:#810101'"></strong>
+      <textarea class="form-control" rows="3" placeholder="Description" th:field="*{description}"></textarea>
+    </div>
+    <div class="mb-3">
+      <strong th:if="${#fields.hasErrors('body')}" th:errors="*{body}" th:style="'color:#810101'"></strong>
+      <textarea class="form-control" rows="10" cols="60"
+                placeholder="Write" th:field="*{body}"></textarea>
+    </div>
+    <div class="col-12 text-center mt-3">
+      <button type="submit" class="btn btn-outline-dark">Send post</button>
+    </div>
+  </form>
 </div>
 </body>
 </html>

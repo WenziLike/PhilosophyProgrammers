@@ -1,79 +1,79 @@
 package com.philosophyprogrammers.controller;
 
-import com.philosophyprogrammers.entity.Article;
-import com.philosophyprogrammers.service.articles.ArticleServiceImpl;
+import com.philosophyprogrammers.dto.ArticleDTO;
+import com.philosophyprogrammers.entity.ArticleEntity;
+import com.philosophyprogrammers.service.article.ArticleServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
+import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+/**
+ * Article Controller class for {@link ArticleEntity}
+ * show articles posts and created new article post
+ *
+ * @author Viacheslav Murakhin
+ * @version 1.0
+ */
 
 @Controller
 public class ArticleController {
 
     private ArticleServiceImpl articleServiceImpl;
+    private static final String REDIRECT_INDEX = "redirect:/";
 
     public ArticleController(ArticleServiceImpl articleServiceImpl) {
         this.articleServiceImpl = articleServiceImpl;
     }
 
-    @GetMapping
-    public String articles(ModelMap modelMap) {
-        List<Article> articles = articleServiceImpl.getAll();
-        modelMap.addAttribute("articles", articles);
+    @GetMapping("/write")
+    public String showWriteForm(ModelMap modelMap) {
+        modelMap.addAttribute("articleDTO", new ArticleDTO());
+        return "accountApp/writeForm";
+    }
+
+
+    @PostMapping("/write")
+    public String createPost(@Valid ArticleDTO articleDTO,
+                             BindingResult bindingResult,
+                             ModelMap modelMap) {
+
+//        if (articleDTO.getTitle() != null
+//                && articleDTO.getDescription() != null
+//                && articleDTO.getBody() != null) {
+//            bindingResult.rejectValue("errors", "errors", "All fields must be filled");
+//            modelMap.addAttribute("articleDTO", articleDTO);
+//            return "accountApp/writeForm";
+//        }
+
+        if (bindingResult.hasErrors()) {
+            modelMap.addAttribute("articleDTO", articleDTO);
+            return "accountApp/writeForm";
+        }
+
+
+        //todo you can create a method........
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss a");
+        LocalDateTime now = LocalDateTime.now();
+        String dateTimeString = now.format(formatter);  //2019-03-28 14:47:33 PM
+        LocalDateTime localTimeObj = LocalDateTime.parse(dateTimeString, formatter);
+        //====================================================
+
+        articleDTO.setCreated(localTimeObj);
+        articleServiceImpl.createArticlePost(articleDTO);
+        return REDIRECT_INDEX;
+    }
+
+    @GetMapping("/")
+    public String allArticlesPost(ModelMap modelMap) {
+        modelMap.addAttribute("articles",
+                articleServiceImpl.getAllArticlesPosts());
         return "index";
     }
 
-    @GetMapping("/newPost")
-    public String showNewFormPost(Article article, ModelMap modelMap) {
-        modelMap.addAttribute("article", article);
-        return "newPost";
-    }
-
-    @PostMapping("/newPost")
-    public String createdNewArticle(@ModelAttribute("article") Article article) {
-        articleServiceImpl.createdNewArticle(article);
-        return "redirect:/index";
-    }
-
-//    ================================================
-
-    @GetMapping("/edit/article/{id}")
-    public String showUpdateFormArticle(
-            @PathVariable("id") long id,
-            ModelMap modelMap) {
-        Article article = articleServiceImpl.findById(id)
-                .orElseThrow();
-
-        modelMap.addAttribute("article", article);
-        return "edit-article";
-    }
-
-    @PostMapping("/edit/article/{id}")
-    public String updateArticle(
-            @PathVariable(value = "id") long id,
-            @ModelAttribute("article") Article article) {
-        Article articleFromDb = articleServiceImpl.findById(id).orElseThrow();
-
-        articleFromDb.setContentsTitle(article.getContentsTitle());
-        articleFromDb.setContentsDescription(article.getContentsDescription());
-        articleFromDb.setContentsBody(article.getContentsBody());
-//        user.setLastName(user.getLastName());
-//
-        articleServiceImpl.createdNewArticle(article);
-
-//        userServiceImpl.editUser(user);
-        return "redirect:/index";
-    }
-
-    @GetMapping("/delete/article/{id}")
-    public String deleteArticle(@PathVariable("id") long id) {
-        Article article = articleServiceImpl.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid article Id:" + id));
-        articleServiceImpl.deleteArticle(article);
-        return "redirect:/index";
-    }
 }

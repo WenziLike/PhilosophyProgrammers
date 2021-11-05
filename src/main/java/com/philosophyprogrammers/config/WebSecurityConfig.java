@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/registration", "/login").permitAll()
-                .antMatchers("/account/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers("/account/**" ,"/write").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .and()
                 /*============== REMEMBER ME*/
                 .rememberMe().tokenRepository(persistentTokenRepository())
