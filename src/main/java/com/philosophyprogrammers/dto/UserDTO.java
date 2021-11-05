@@ -3,6 +3,13 @@ package com.philosophyprogrammers.dto;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 
+/**
+ * For configurable messages and internationalization.
+ *
+ * @author Viacheslav Murakhin
+ * @version 1.0
+ */
+
 public class UserDTO implements Serializable {
 
     @NotEmpty(message = "First Name can not be empty")
@@ -17,6 +24,7 @@ public class UserDTO implements Serializable {
     private String email;
     @NotEmpty(message = "Password can not be empty")
     private String password;
+    @NotEmpty(message = "Password can not be empty")
     private String confirmPassword;
     private boolean active;
 

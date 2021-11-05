@@ -22,10 +22,10 @@ public class ApplicationController {
         return "index";
     }
 
-    @GetMapping("/account/users")
+    @GetMapping("/account/home")
     public String showUsersList(ModelMap modelMap) {
         modelMap.addAttribute("userDTO", new UserDTO());
-        return "users";
+        return "home";
     }
 
     @GetMapping("/account/profile")

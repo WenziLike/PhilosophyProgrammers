@@ -13,7 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 
 /**
- * Controller class for {@link UserEntity}
+ * Register Controller class for {@link UserEntity}
+ * <p>
+ * Validate incoming data.
+ * Show an error message on front-end (if any).
+ * Call user service for registration.
+ * Show error in we find a duplicate user or any other issue while saving the user profile.
  *
  * @author Viacheslav Murakhin
  * @version 1.0
@@ -63,6 +68,8 @@ public class RegisterAndLoginController {
         try {
             userServiceImpl.register(userDTO);
         } catch (UserAlreadyExistException e) {
+
+            // Duplicate User Error
             bindingResult.rejectValue("email", "email", "An account already exists for this email.");
             modelMap.addAttribute("userDTO", userDTO);
             return "accountApp/registration";
