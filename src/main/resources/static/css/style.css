@@ -2,7 +2,52 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-.wrap_images img {
-    width: 40%;
+img {
+    width: 10%;
     height: auto;
 }
+
+.navbar-brand {
+    font-size: 24px;
+}
+
+.nav-link {
+    font-weight: 600;
+}
+
+header {
+    box-shadow: 34px 2px 69px #5e5e5e;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+.photo {
+    width: 30px;
+    height: 30px;
+    /*margin: 0 auto;*/
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.personPhoto {
+    width: auto;
+    height: 100%;
+    margin: 0 -9px auto;
+}
+.dropdown-logo {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.dropdown-logo-user {
+    /*border-radius: 50%;*/
+    width: auto;
+    height: 100%;
+    margin: 0 -9px auto;
+}
+
