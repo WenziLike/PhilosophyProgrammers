@@ -1,5 +1,7 @@
 package com.philosophyprogrammers.dto;
 
+import com.philosophyprogrammers.entity.UserEntity;
+
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -23,6 +25,7 @@ public class ArticleDTO implements Serializable {
     private String tag;
     private LocalDateTime created;
     private LocalDateTime modified;
+    private UserEntity author;
 
     public String getTitle() {
         return title;
@@ -78,6 +81,15 @@ public class ArticleDTO implements Serializable {
         return this;
     }
 
+    public UserEntity getAuthor() {
+        return author;
+    }
+
+    public ArticleDTO setAuthor(UserEntity author) {
+        this.author = author;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "ArticleDTO{" +
@@ -87,6 +99,7 @@ public class ArticleDTO implements Serializable {
                 ", tag='" + tag + '\'' +
                 ", created=" + created +
                 ", modified=" + modified +
+                ", author=" + author +
                 '}';
     }
 }

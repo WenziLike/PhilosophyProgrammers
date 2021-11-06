@@ -1,0 +1,28 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--HEAD-->
+<head th:replace="coreApp/head :: head">
+  <title>Profile</title>
+</head>
+<body>
+
+<header th:replace="coreApp/header:: header">
+</header>
+<h2>Account HOME page </h2>
+<h4>User Online</h4>
+
+<h4>View All Users: </h4>
+<!--<div th:if="${users.isEmpty}">-->
+<!--  <strong>No post</strong>-->
+<!--</div>-->
+<!--<h4>Logged in users: </h4>-->
+<!--<div th:each="userEntity : ${users}">-->
+<!--  <strong th:utext="${username}"></strong>-->
+<!--  <strong th:utext="${userEntity.active}"></strong>-->
+<!--  <a th:href="@{/profile/userEntity/{id}(id=${userEntity.id})}">View Profile</a>-->
+<!--</div>-->
+
+<script th:replace="coreApp/script :: script"></script>
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.philosophyprogrammers.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Simple JavaBean domain object that represents a User.
@@ -64,7 +65,6 @@ public class UserEntity {
     /**
      * ================ Getters and Setters
      */
-
     public Long getId() {
         return id;
     }

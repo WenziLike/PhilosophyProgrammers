@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, userEntity-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Edit User</title>
 </head>
@@ -14,8 +14,8 @@
 </style>
 <body>
 <h2>Edit User</h2>
-<form th:object="${user}"
-      th:action="@{/profile/user/{id}(id=${user.id})}"
+<form th:object="${userEntity}"
+      th:action="@{/profile/userEntity/{id}(id=${userEntity.id})}"
       method="post">
   <div>
     <label>First Name</label>

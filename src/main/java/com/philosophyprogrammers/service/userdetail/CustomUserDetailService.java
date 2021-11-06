@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 /**
- *
- *
  * @author Viacheslav Murakhin
  * @version 1.0
  */
@@ -35,8 +33,9 @@ public class CustomUserDetailService implements UserDetailsService {
             throw new UsernameNotFoundException(email);
         }
 
-        UserDetails user = User.withUsername(userCustomer.getEmail())
+        UserDetails user = User.withUsername(userCustomer.getUsername())
                 .password(userCustomer.getPassword())
+//                .username(userCustomer.getUsername())
                 .username(String.valueOf(userCustomer.setActive(true)))
                 .authorities("ROLE_USER").build();
         return user;

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.List;
+
 /**
  * Application Controller class for {@link UserEntity}
  * show pages Application
@@ -16,11 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ApplicationController {
-
-    @GetMapping("/")
-    public String showHomePage() {
-        return "index";
-    }
 
     @GetMapping("/account/home")
     public String showUsersList(ModelMap modelMap) {
@@ -33,8 +30,4 @@ public class ApplicationController {
         return "accountApp/profile";
     }
 
-    @GetMapping("/write")
-    public String showWriteForm() {
-        return "accountApp/writeForm";
-    }
 }

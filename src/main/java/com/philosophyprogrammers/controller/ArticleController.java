@@ -3,6 +3,7 @@ package com.philosophyprogrammers.controller;
 import com.philosophyprogrammers.dto.ArticleDTO;
 import com.philosophyprogrammers.entity.ArticleEntity;
 import com.philosophyprogrammers.service.article.ArticleServiceImpl;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;

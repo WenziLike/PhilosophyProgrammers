@@ -26,6 +26,10 @@ public class ArticleEntity {
     private LocalDateTime created;
     private LocalDateTime modified;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private UserEntity author;
+
     /**
      * ================ Constructor
      */
@@ -34,15 +38,18 @@ public class ArticleEntity {
 
     public ArticleEntity(String title,
                          String description,
-                         String body, String tag,
+                         String body,
+                         String tag,
                          LocalDateTime created,
-                         LocalDateTime modified) {
+                         LocalDateTime modified,
+                         UserEntity author) {
         this.title = title;
         this.description = description;
         this.body = body;
         this.tag = tag;
-        this.created = LocalDateTime.now();
-        this.modified = LocalDateTime.now();
+        this.created = created;
+        this.modified = modified;
+        this.author = author;
     }
 
     /**
@@ -112,6 +119,15 @@ public class ArticleEntity {
         return this;
     }
 
+    public UserEntity getAuthor() {
+        return author;
+    }
+
+    public ArticleEntity setAuthor(UserEntity author) {
+        this.author = author;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "ArticleEntity{" +
@@ -122,6 +138,7 @@ public class ArticleEntity {
                 ", tag='" + tag + '\'' +
                 ", created=" + created +
                 ", modified=" + modified +
+                ", author=" + author +
                 '}';
     }
 }
