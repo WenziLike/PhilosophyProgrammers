@@ -1,4 +1,4 @@
-package com.philosophyprogrammers.config;
+package com.philosophyprogrammers.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,12 +42,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/registration", "/login").permitAll()
-                .antMatchers("/account/**" ,"/write").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers("/account/**", "/write").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                 .and()
                 /*============== REMEMBER ME*/
                 .rememberMe().tokenRepository(persistentTokenRepository())
                 .rememberMeCookieName("custom-remember-me-cookie")
                 .userDetailsService(this.userDetailsService)
+//                .rememberMeParameter("username")
 //                .rememberMeServices(null)
 
                 // Checking cookies in seconds
@@ -63,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .failureUrl("/login?error=true")
                 )
                 /*============== LOGOUT*/
-                .logout().deleteCookies("JSESSIONID")
+                .logout().invalidateHttpSession(true)
                 .logoutSuccessUrl("/login");
     }
 

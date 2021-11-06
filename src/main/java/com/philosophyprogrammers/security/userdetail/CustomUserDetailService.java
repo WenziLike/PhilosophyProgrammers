@@ -1,4 +1,4 @@
-package com.philosophyprogrammers.service.userdetail;
+package com.philosophyprogrammers.security.userdetail;
 
 import com.philosophyprogrammers.entity.UserEntity;
 import com.philosophyprogrammers.repository.UserRepository;
@@ -35,7 +35,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
         UserDetails user = User.withUsername(userCustomer.getUsername())
                 .password(userCustomer.getPassword())
-//                .username(userCustomer.getUsername())
+                .username(userCustomer.getUsername())
                 .username(String.valueOf(userCustomer.setActive(true)))
                 .authorities("ROLE_USER").build();
         return user;
