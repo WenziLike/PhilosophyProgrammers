@@ -64,18 +64,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .failureUrl("/login?error=true")
                 )
                 /*============== LOGOUT*/
-                .logout().invalidateHttpSession(true)
+                .logout()
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/login");
-    }
-
-    /**
-     * Using this to persist the remember-me token in the database for more secure approach.
-     */
-    @Bean
-    public PersistentTokenRepository persistentTokenRepository() {
-        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
-        db.setDataSource(dataSource);
-        return db;
     }
 
     @Override
@@ -109,6 +101,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authProvider());
+    }
+
+    /**
+     * Using this to persist the remember-me token in the database for more secure approach.
+     */
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
+        db.setDataSource(dataSource);
+        return db;
     }
 
 }

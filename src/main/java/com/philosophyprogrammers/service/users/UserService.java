@@ -19,4 +19,6 @@ public interface UserService {
 
     boolean checkUserExist(String email);
 
+    void sendRegistrationConfirmationEmail(final UserEntity user);
+
 }
