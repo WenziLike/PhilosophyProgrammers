@@ -33,72 +33,64 @@ public class UserDTO implements Serializable {
         return firstName;
     }
 
-    public UserDTO setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
-        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public UserDTO setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
-        return this;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public UserDTO setUsername(String username) {
+    public void setUsername(String username) {
         this.username = username;
-        return this;
     }
 
     public String getImage() {
         return image;
     }
 
-    public UserDTO setImage(String image) {
+    public void setImage(String image) {
         this.image = image;
-        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public UserDTO setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public UserDTO setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
-        return this;
     }
 
     public String getConfirmPassword() {
         return confirmPassword;
     }
 
-    public UserDTO setConfirmPassword(String confirmPassword) {
+    public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
-        return this;
     }
 
     public boolean isActive() {
         return active;
     }
 
-    public UserDTO setActive(boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
-        return this;
     }
 
     @Override
