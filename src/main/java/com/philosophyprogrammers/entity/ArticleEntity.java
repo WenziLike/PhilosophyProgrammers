@@ -26,8 +26,8 @@ public class ArticleEntity {
     private LocalDateTime created;
     private LocalDateTime modified;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity author;
 
     /**
@@ -60,73 +60,66 @@ public class ArticleEntity {
         return id;
     }
 
-    public ArticleEntity setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
-        return this;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public ArticleEntity setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
-        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public ArticleEntity setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
-        return this;
     }
 
     public String getBody() {
         return body;
     }
 
-    public ArticleEntity setBody(String body) {
+    public void setBody(String body) {
         this.body = body;
-        return this;
     }
 
     public String getTag() {
         return tag;
     }
 
-    public ArticleEntity setTag(String tag) {
+    public void setTag(String tag) {
         this.tag = tag;
-        return this;
     }
 
     public LocalDateTime getCreated() {
         return created;
     }
 
-    public ArticleEntity setCreated(LocalDateTime created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
-        return this;
     }
 
     public LocalDateTime getModified() {
         return modified;
     }
 
-    public ArticleEntity setModified(LocalDateTime modified) {
+    public void setModified(LocalDateTime modified) {
         this.modified = modified;
-        return this;
     }
 
     public UserEntity getAuthor() {
         return author;
     }
 
-    public ArticleEntity setAuthor(UserEntity author) {
+    public void setAuthor(UserEntity author) {
         this.author = author;
-        return this;
     }
+
 
     @Override
     public String toString() {
