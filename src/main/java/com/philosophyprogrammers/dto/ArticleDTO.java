@@ -3,6 +3,7 @@ package com.philosophyprogrammers.dto;
 import com.philosophyprogrammers.entity.UserEntity;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 public class ArticleDTO implements Serializable {
 
     @NotEmpty(message = "Title can not be empty!!!")
+    @Size(min = 6, max = 42, message = "Title must contain min 6 to max 42")
     private String title;
     @NotEmpty(message = "Description can not be empty!!!")
     private String description;
