@@ -13,6 +13,9 @@
       <div class="text-center mb-3">
         Already have an account? <a href="/login"><strong>Sign in</strong></a>
       </div>
+      <div class="alert alert-success" role="alert" th:if="${registrationMsg != null}">
+        <p th:text="${registrationMsg}"></p>
+      </div>
       <form class="row text-center box d-flex justify-content-center flex-column" th:action="@{/registration}"
             th:object="${userDTO}"
             method="post">
