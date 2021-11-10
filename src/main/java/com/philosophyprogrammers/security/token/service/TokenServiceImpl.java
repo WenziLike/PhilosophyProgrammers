@@ -2,16 +2,14 @@ package com.philosophyprogrammers.security.token.service;
 
 import com.philosophyprogrammers.entity.TokenEntity;
 import com.philosophyprogrammers.security.token.repository.TokenRepository;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.keygen.BytesKeyGenerator;
 import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.Charset;
-//import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-
-import org.apache.tomcat.util.codec.binary.Base64;
 
 @Service
 public class TokenServiceImpl implements TokenService {
@@ -29,7 +27,7 @@ public class TokenServiceImpl implements TokenService {
     private int tokenValidationsInSeconds;
 
 
-    private  TokenRepository tokenRepository;
+    private TokenRepository tokenRepository;
 
     public TokenServiceImpl(TokenRepository tokenRepository) {
         this.tokenRepository = tokenRepository;
@@ -60,6 +58,16 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public TokenEntity findByToken(String token) {
         return tokenRepository.findByToken(token);
+    }
+
+    @Override
+    public void removeToken(TokenEntity token) {
+        tokenRepository.delete(token);
+    }
+
+    @Override
+    public void removeTokenByToken(String token) {
+        tokenRepository.removeByToken(token);
     }
 
     public int getTokenValidationsInSeconds() {

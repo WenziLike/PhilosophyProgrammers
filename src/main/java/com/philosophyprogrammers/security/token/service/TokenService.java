@@ -11,4 +11,9 @@ public interface TokenService {
     void saveToken(TokenEntity token);
 
     TokenEntity findByToken(String token);
+
+    void removeToken(TokenEntity token);
+
+    void removeTokenByToken(String token);
+
 }

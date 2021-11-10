@@ -40,13 +40,17 @@ public class TokenEntity {
     @Transient
     private boolean isExpired;
 
+
+    /**
+     * Getters and Setters
+     */
+
     public Long getId() {
         return id;
     }
 
-    public TokenEntity setId(Long id) {
+    public void setId(Long id) {
         this.id = id;
-        return this;
     }
 
     public String getToken() {
@@ -83,5 +87,17 @@ public class TokenEntity {
 
     public void setExpired(boolean expired) {
         isExpired = expired;
+    }
+
+    @Override
+    public String toString() {
+        return "TokenEntity{" +
+                "id=" + id +
+                ", token='" + token + '\'' +
+                ", timestamp=" + timestamp +
+                ", expireAt=" + expireAt +
+                ", userEntity=" + userEntity +
+                ", isExpired=" + isExpired +
+                '}';
     }
 }
