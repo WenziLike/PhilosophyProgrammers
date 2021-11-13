@@ -29,67 +29,88 @@ public class ArticleDTO implements Serializable {
     private LocalDateTime modified;
     private UserEntity author;
 
+    /**
+     * ============ Constructor
+     */
+
+    public ArticleDTO() {
+    }
+
+    public ArticleDTO(
+            String title,
+            String description,
+            String body,
+            String tag,
+            LocalDateTime created,
+            LocalDateTime modified,
+            UserEntity author) {
+        this.title = title;
+        this.description = description;
+        this.body = body;
+        this.tag = tag;
+        this.created = created;
+        this.modified = modified;
+        this.author = author;
+    }
+
+    /**
+     * ============ Getters and Setters
+     */
+
     public String getTitle() {
         return title;
     }
 
-    public ArticleDTO setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
-        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public ArticleDTO setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
-        return this;
     }
 
     public String getBody() {
         return body;
     }
 
-    public ArticleDTO setBody(String body) {
+    public void setBody(String body) {
         this.body = body;
-        return this;
     }
 
     public String getTag() {
         return tag;
     }
 
-    public ArticleDTO setTag(String tag) {
+    public void setTag(String tag) {
         this.tag = tag;
-        return this;
     }
 
     public LocalDateTime getCreated() {
         return created;
     }
 
-    public ArticleDTO setCreated(LocalDateTime created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
-        return this;
     }
 
     public LocalDateTime getModified() {
         return modified;
     }
 
-    public ArticleDTO setModified(LocalDateTime modified) {
+    public void setModified(LocalDateTime modified) {
         this.modified = modified;
-        return this;
     }
 
     public UserEntity getAuthor() {
         return author;
     }
 
-    public ArticleDTO setAuthor(UserEntity author) {
+    public void setAuthor(UserEntity author) {
         this.author = author;
-        return this;
     }
 
     @Override

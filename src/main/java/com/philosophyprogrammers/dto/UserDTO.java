@@ -18,7 +18,6 @@ public class UserDTO implements Serializable {
     private String lastName;
     @NotEmpty(message = "Username can not be empty")
     private String username;
-    private String image;
 
     @Email(message = "Please provide a valid email id")
     private String email;
@@ -26,8 +25,6 @@ public class UserDTO implements Serializable {
     private String password;
     @NotEmpty(message = "Password can not be empty")
     private String confirmPassword;
-    private boolean active;
-
 
     public String getFirstName() {
         return firstName;
@@ -51,14 +48,6 @@ public class UserDTO implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public String getEmail() {
@@ -85,25 +74,15 @@ public class UserDTO implements Serializable {
         this.confirmPassword = confirmPassword;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
     @Override
     public String toString() {
         return "UserDTO{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", username='" + username + '\'' +
-                ", image='" + image + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", confirmPassword='" + confirmPassword + '\'' +
-                ", active=" + active +
                 '}';
     }
 }
