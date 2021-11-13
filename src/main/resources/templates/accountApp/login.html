@@ -11,13 +11,13 @@
     <div class="">
       <h1 class="text-center mt-3 mb-3">Login</h1>
       <div class="text-center mb-3">
-        New to profile? <a href="/registration"><strong>Create an account.</strong></a>
+        New to profile? <a href="/register"><strong>Create an account.</strong></a>
       </div>
 
       <!--      <p th:if="${loginError}" class="error">Wrong us email or password</p>-->
 
       <form class="row text-center box d-flex justify-content-center flex-column" th:action="@{/login}"
-            th:object="${userDTO}"
+            th:object="${formLogin}"
             method="post">
         <div th:if="${param.error}">
           <div class="alert alert-danger">Invalid username or password</div>

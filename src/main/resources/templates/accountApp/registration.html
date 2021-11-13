@@ -16,40 +16,44 @@
       <div class="alert alert-success" role="alert" th:if="${registrationMsg != null}">
         <p th:text="${registrationMsg}"></p>
       </div>
-      <form class="row text-center box d-flex justify-content-center flex-column" th:action="@{/registration}"
+      <form class="row text-center box d-flex justify-content-center flex-column" th:action="@{/register}"
             th:object="${userDTO}"
             method="post">
+
+        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+          <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+        </div>
 
         <div class="flex-column d-flex justify-content-center align-items-center">
           <div class="col-md-4 mb-3">
             <input type="text" class="form-control" th:field="*{firstName}" placeholder="First Name">
-            <strong th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:style="'color:#810101'"></strong>
+<!--            <strong th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" th:style="'color:#810101'"></strong>-->
           </div>
 
           <div class="col-md-4 mb-3">
             <input type="text" class="form-control" th:field="*{lastName}" placeholder="Last name">
-            <strong th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:style="'color:#810101'"></strong>
+<!--            <strong th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" th:style="'color:#810101'"></strong>-->
           </div>
 
           <div class="col-md-4 mb-3">
             <input type="text" class="form-control" th:field="*{username}" placeholder="Username">
-            <strong th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:style="'color:#810101'"></strong>
+<!--            <strong th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:style="'color:#810101'"></strong>-->
           </div>
 
           <div class="col-md-4 mb-3">
             <input type="text" class="form-control" th:field="*{email}" placeholder="E-mail">
-            <strong th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:style="'color:#810101'"></strong>
+<!--            <strong th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:style="'color:#810101'"></strong>-->
           </div>
 
           <div class="col-md-4 mb-3">
             <input type="text" class="form-control" th:field="*{password}" placeholder="Password">
-            <strong th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:style="'color:#810101'"></strong>
+<!--            <strong th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:style="'color:#810101'"></strong>-->
           </div>
 
           <div class="col-md-4 mb-3">
             <input type="text" class="form-control" th:field="*{confirmPassword}" placeholder="Retype password">
-            <strong th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"
-                    th:style="'color:#810101'"></strong>
+<!--            <strong th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"-->
+<!--                    th:style="'color:#810101'"></strong>-->
           </div>
 
           <div class="icheck-primary">
@@ -60,7 +64,7 @@
           </div>
 
           <div class="col-12 text-center mt-3">
-            <button type="submit" class="btn btn-outline-dark">Register</button>
+            <button type="submit" class="btn btn-outline-dark">Registration</button>
           </div>
 
         </div>
