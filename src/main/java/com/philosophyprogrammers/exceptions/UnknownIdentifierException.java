@@ -1,5 +1,9 @@
 package com.philosophyprogrammers.exceptions;
 
+/**
+ * In case customer account does not exists in the system for a given email id.
+ */
+
 public class UnknownIdentifierException extends Exception {
     public UnknownIdentifierException() {
         super();
