@@ -1,6 +1,7 @@
 package com.philosophyprogrammers.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -16,7 +17,6 @@ import java.util.Set;
 public class UserEntity {
 
     @Id
-    @Column(unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -32,11 +32,33 @@ public class UserEntity {
     @Transient
     private String confirmPassword;
     private boolean active;
+    private String token;
+    private boolean accountVerified;
+    private int failedLoginAttempts;
+    private boolean loginDisabled;
 
-//    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-//    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-//    @Enumerated(EnumType.STRING)
-//    private Set<Role> roles;
+    @OneToMany(mappedBy = "user")
+    private Set<TokenEntity> tokens;
+
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "user_groups",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"
+            ))
+    private Set<GroupEntity> userGroups = new HashSet<>();
+
+    public void addUserGroups(GroupEntity group) {
+        userGroups.add(group);
+        group.getUsers().add(this);
+    }
+
+    public void removeUserGroups(GroupEntity group) {
+        userGroups.remove(group);
+        group.getUsers().remove(this);
+    }
 
     /**
      * ================ Constructor
@@ -51,7 +73,13 @@ public class UserEntity {
                       String email,
                       String password,
                       String confirmPassword,
-                      boolean active) {
+                      boolean active,
+                      String token,
+                      boolean accountVerified,
+                      int failedLoginAttempts,
+                      boolean loginDisabled,
+                      Set<TokenEntity> tokens,
+                      Set<GroupEntity> userGroups) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -60,92 +88,139 @@ public class UserEntity {
         this.password = password;
         this.confirmPassword = confirmPassword;
         this.active = active;
+        this.token = token;
+        this.accountVerified = accountVerified;
+        this.failedLoginAttempts = failedLoginAttempts;
+        this.loginDisabled = loginDisabled;
+        this.tokens = tokens;
+        this.userGroups = userGroups;
     }
 
     /**
      * ================ Getters and Setters
      */
+
     public Long getId() {
         return id;
-    }
-
-    public UserEntity setId(Long id) {
-        this.id = id;
-        return this;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public UserEntity setFirstName(String firstName) {
+    public void setFirstName(String firstName) {
         this.firstName = firstName;
-        return this;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public UserEntity setLastName(String lastName) {
+    public void setLastName(String lastName) {
         this.lastName = lastName;
-        return this;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public UserEntity setUsername(String username) {
+    public void setUsername(String username) {
         this.username = username;
-        return this;
     }
 
     public String getImage() {
         return image;
     }
 
-    public UserEntity setImage(String image) {
+    public void setImage(String image) {
         this.image = image;
-        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public UserEntity setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
-        return this;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public UserEntity setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
-        return this;
     }
 
     public String getConfirmPassword() {
         return confirmPassword;
     }
 
-    public UserEntity setConfirmPassword(String confirmPassword) {
+    public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
-        return this;
     }
 
     public boolean isActive() {
         return active;
     }
 
-    public UserEntity setActive(boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
-        return this;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public boolean isAccountVerified() {
+        return accountVerified;
+    }
+
+    public void setAccountVerified(boolean accountVerified) {
+        this.accountVerified = accountVerified;
+    }
+
+    public int getFailedLoginAttempts() {
+        return failedLoginAttempts;
+    }
+
+    public void setFailedLoginAttempts(int failedLoginAttempts) {
+        this.failedLoginAttempts = failedLoginAttempts;
+    }
+
+    public boolean isLoginDisabled() {
+        return loginDisabled;
+    }
+
+    public void setLoginDisabled(boolean loginDisabled) {
+        this.loginDisabled = loginDisabled;
+    }
+
+    public Set<TokenEntity> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(Set<TokenEntity> tokens) {
+        this.tokens = tokens;
+    }
+
+    public Set<GroupEntity> getUserGroups() {
+        return userGroups;
+    }
+
+    public void setUserGroups(Set<GroupEntity> userGroups) {
+        this.userGroups = userGroups;
+    }
+
+    //=======================================
+    public void addToken(TokenEntity token) {
+        tokens.add(token);
+    }
+    //=======================================
 
     @Override
     public boolean equals(Object o) {
@@ -153,6 +228,11 @@ public class UserEntity {
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
         return Objects.equals(email, that.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
     }
 
     @Override
@@ -167,6 +247,12 @@ public class UserEntity {
                 ", password='" + password + '\'' +
                 ", confirmPassword='" + confirmPassword + '\'' +
                 ", active=" + active +
+                ", token='" + token + '\'' +
+                ", accountVerified=" + accountVerified +
+                ", failedLoginAttempts=" + failedLoginAttempts +
+                ", loginDisabled=" + loginDisabled +
+                ", tokens=" + tokens +
+                ", userGroups=" + userGroups +
                 '}';
     }
 }

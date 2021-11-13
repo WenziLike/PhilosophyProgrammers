@@ -27,7 +27,7 @@ public class TokenEntity {
 
     @CreationTimestamp
     @Column(updatable = false)
-    private Timestamp timestamp;
+    private Timestamp timeStamp;
 
     @Column(updatable = false)
     @Basic(optional = false)
@@ -35,22 +35,36 @@ public class TokenEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private UserEntity userEntity;
+    private UserEntity user;
 
     @Transient
     private boolean isExpired;
 
+    /**
+     * ==================== Constructor
+     */
+
+    public TokenEntity() {
+    }
+
+    public TokenEntity(String token,
+                       Timestamp timeStamp,
+                       LocalDateTime expireAt,
+                       UserEntity user,
+                       boolean isExpired) {
+        this.token = token;
+        this.timeStamp = timeStamp;
+        this.expireAt = expireAt;
+        this.user = user;
+        this.isExpired = isExpired;
+    }
 
     /**
-     * Getters and Setters
+     * ==================== Getters and Setters
      */
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getToken() {
@@ -61,8 +75,8 @@ public class TokenEntity {
         this.token = token;
     }
 
-    public Timestamp getTimestamp() {
-        return timestamp;
+    public Timestamp getTimeStamp() {
+        return timeStamp;
     }
 
     public LocalDateTime getExpireAt() {
@@ -73,14 +87,15 @@ public class TokenEntity {
         this.expireAt = expireAt;
     }
 
-    public UserEntity getUserEntity() {
-        return userEntity;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUserEntity(UserEntity userEntity) {
-        this.userEntity = userEntity;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
+    // this is generic implementation, you can always make it timezone specific
     public boolean isExpired() {
         return getExpireAt().isBefore(LocalDateTime.now());
     }
@@ -94,9 +109,9 @@ public class TokenEntity {
         return "TokenEntity{" +
                 "id=" + id +
                 ", token='" + token + '\'' +
-                ", timestamp=" + timestamp +
+                ", timeStamp=" + timeStamp +
                 ", expireAt=" + expireAt +
-                ", userEntity=" + userEntity +
+                ", user=" + user +
                 ", isExpired=" + isExpired +
                 '}';
     }

@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 public class ArticleEntity {
 
     @Id
-    @Column(unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
@@ -58,10 +57,6 @@ public class ArticleEntity {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getTitle() {
