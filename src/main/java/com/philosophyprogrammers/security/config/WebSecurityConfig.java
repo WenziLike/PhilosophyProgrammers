@@ -1,17 +1,22 @@
 package com.philosophyprogrammers.security.config;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationEventPublisher;
+import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 import javax.sql.DataSource;
 
@@ -22,7 +27,6 @@ import javax.sql.DataSource;
  * @version 1.0
  */
 
-@Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -36,38 +40,59 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.dataSource = dataSource;
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/registration", "/login").permitAll()
-                .antMatchers("/account/**", "/write").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers("/registration", "/login", "/home").permitAll()
+                .antMatchers("/account/**", "/write").hasAnyAuthority("USER", "ADMIN", "MODERATOR")
                 .and()
                 /*============== REMEMBER ME*/
                 .rememberMe().tokenRepository(persistentTokenRepository())
+                .rememberMeCookieDomain("domain")
                 .rememberMeCookieName("custom-remember-me-cookie")
                 .userDetailsService(this.userDetailsService)
 //                .rememberMeParameter("username")
 //                .rememberMeServices(null)
 
                 // Checking cookies in seconds
-                .tokenValiditySeconds(86400)
+                .tokenValiditySeconds(2000)
                 .useSecureCookie(true)
                 .and()
 
-
                 /*============== LOGIN configurations*/
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/account/home")
-                        .failureUrl("/login?error=true")
-                )
+                .formLogin().defaultSuccessUrl("/account/home")
+                .loginPage("/login")
+                .failureUrl("/login?error=true")
+                .and()
                 /*============== LOGOUT*/
                 .logout()
-                .invalidateHttpSession(true)
+//                .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/login");
+    }
+
+    @Bean
+    public AuthenticationEventPublisher authenticationEventPublisher
+            (ApplicationEventPublisher applicationEventPublisher) {
+        return new DefaultAuthenticationEventPublisher(applicationEventPublisher);
+    }
+
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        SessionRegistry sessionRegistry = new SessionRegistryImpl();
+        return sessionRegistry;
+    }
+
+    /**
+     * We need this bean for the session management. Specially if we want to control the concurrent session-control support
+     * with Spring security.
+     *
+     * @return
+     */
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
     }
 
     @Override
@@ -112,5 +137,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         db.setDataSource(dataSource);
         return db;
     }
-
 }

@@ -18,9 +18,9 @@ import java.nio.charset.StandardCharsets;
 @Service
 public class EmailServiceImpl implements EmailService {
 
-    private JavaMailSender emailSender;
+    private final JavaMailSender emailSender;
 
-    private SpringTemplateEngine templateEngine;
+    private final SpringTemplateEngine templateEngine;
 
     public EmailServiceImpl(JavaMailSender emailSender, SpringTemplateEngine templateEngine) {
         this.emailSender = emailSender;

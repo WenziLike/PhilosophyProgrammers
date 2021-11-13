@@ -1,20 +1,26 @@
 package com.philosophyprogrammers.service.users;
 
 import com.philosophyprogrammers.dto.UserDTO;
+import com.philosophyprogrammers.entity.GroupEntity;
 import com.philosophyprogrammers.entity.TokenEntity;
 import com.philosophyprogrammers.entity.UserEntity;
 import com.philosophyprogrammers.exceptions.InvalidTokenException;
 import com.philosophyprogrammers.exceptions.UnknownIdentifierException;
 import com.philosophyprogrammers.exceptions.UserAlreadyExistException;
+import com.philosophyprogrammers.repository.GroupRepository;
 import com.philosophyprogrammers.repository.UserRepository;
 import com.philosophyprogrammers.security.token.repository.TokenRepository;
 import com.philosophyprogrammers.security.token.service.TokenService;
+import com.philosophyprogrammers.service.email.EmailService;
+import com.philosophyprogrammers.service.email.context.AccountVerificationEmailContext;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.util.Objects;
 
 /**
@@ -24,22 +30,32 @@ import java.util.Objects;
  * @version 1.0
  */
 
-@Service
+@Service("userService")
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
     private final TokenService tokenService;
     private final TokenRepository tokenRepository;
+    private final GroupRepository groupRepository;
 
     public UserServiceImpl(UserRepository userRepository,
                            PasswordEncoder passwordEncoder,
-                           TokenService tokenService, TokenRepository tokenRepository) {
+                           EmailService emailService,
+                           TokenService tokenService,
+                           TokenRepository tokenRepository,
+                           GroupRepository groupRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
         this.tokenService = tokenService;
         this.tokenRepository = tokenRepository;
+        this.groupRepository = groupRepository;
     }
+
+    @Value("${site.base.url.https}")
+    private String baseURL;
 
     @Override
     public void register(UserDTO userDTO) throws UserAlreadyExistException {
@@ -51,8 +67,14 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(userDTO, userEntity);
         encodePassword(userDTO, userEntity);
+        updateCustomerGroup(userEntity);
         userRepository.save(userEntity);
         sendRegistrationConfirmationEmail(userEntity);
+    }
+
+    private void updateCustomerGroup(UserEntity userEntity) {
+        GroupEntity group = groupRepository.findByCode("user");
+        userEntity.addUserGroups(group);
     }
 
     @Override
@@ -61,14 +83,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void sendRegistrationConfirmationEmail(UserEntity userEntity) {
+    public void sendRegistrationConfirmationEmail(UserEntity user) {
         TokenEntity tokenEntity = tokenService.createToken();
-        tokenEntity.setUserEntity(userEntity);
+        tokenEntity.setUser(user);
         tokenRepository.save(tokenEntity);
+        AccountVerificationEmailContext emailContext = new AccountVerificationEmailContext();
+        emailContext.init(user);
+        emailContext.setToken(tokenEntity.getToken());
+        emailContext.buildVerificationUrl(baseURL, tokenEntity.getToken());
+        try {
+            emailService.sendMail(emailContext);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public boolean verifyTokenUser(String token) throws InvalidTokenException {
+    public boolean verifyUser(String token) throws InvalidTokenException {
 
         TokenEntity tokenEntity = tokenService.findByToken(token);
 
@@ -77,30 +108,30 @@ public class UserServiceImpl implements UserService {
             throw new InvalidTokenException("Token is not valid");
         }
 
-        UserEntity userEntity = userRepository.getById(tokenEntity.getUserEntity().getId());
+        UserEntity user = userRepository.getById(tokenEntity.getUser().getId());
 
-        if (Objects.isNull(userEntity)) {
+        if (Objects.isNull(user)) {
             return false;
         }
-        userEntity.setAccountVerified(true);
-        userRepository.save(userEntity);// let's same user details
+        user.setAccountVerified(true);
+        userRepository.save(user);// let's same user details
         tokenService.removeToken(tokenEntity);// we don't need invalid password now
         return true;
     }
 
     @Override
     public UserEntity getUserById(String id) throws UnknownIdentifierException {
-        UserEntity userEntity = userRepository.findByEmail(id);
+        UserEntity user = userRepository.findByEmail(id);
 
-        if (userEntity == null ||
-                BooleanUtils.isFalse(userEntity.isAccountVerified())) {
+        if (user == null ||
+                BooleanUtils.isFalse(user.isAccountVerified())) {
             // we will ignore in case account is not verified or account does not exists
             throw new UnknownIdentifierException("unable to find account or account is not active");
         }
-        return userEntity;
+        return user;
     }
 
-    private void encodePassword(UserDTO userDTO, UserEntity userEntity) {
-        userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+    private void encodePassword(UserDTO source, UserEntity target) {
+        target.setPassword(passwordEncoder.encode(source.getPassword()));
     }
 }

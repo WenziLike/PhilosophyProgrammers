@@ -2,6 +2,8 @@ package com.philosophyprogrammers.service.users;
 
 import com.philosophyprogrammers.dto.UserDTO;
 import com.philosophyprogrammers.entity.UserEntity;
+import com.philosophyprogrammers.exceptions.InvalidTokenException;
+import com.philosophyprogrammers.exceptions.UnknownIdentifierException;
 import com.philosophyprogrammers.exceptions.UserAlreadyExistException;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +22,9 @@ public interface UserService {
     boolean checkUserExist(String email);
 
     void sendRegistrationConfirmationEmail(final UserEntity user);
+
+    boolean verifyUser(String token) throws InvalidTokenException;
+
+    UserEntity getUserById(String id) throws UnknownIdentifierException;
 
 }
