@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
+import static javax.persistence.FetchType.EAGER;
+
 @Entity
 @Table(name = "principle_groups")
 public class GroupEntity {
@@ -66,7 +68,7 @@ public class GroupEntity {
         return Objects.hash(id);
     }
 
-    @ManyToMany(mappedBy = "userGroups")
+    @ManyToMany(mappedBy = "userGroups",fetch = EAGER)
     private Set<UserEntity> users;
 
     public Set<UserEntity> getUsers() {
