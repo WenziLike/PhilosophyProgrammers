@@ -57,26 +57,26 @@ public class RegisterController {
     }
 
     @PostMapping
-    public String userRegistration(@Valid UserDTO userDTO, BindingResult bindingResult, ModelMap modelMap) {
+    public String userRegistration(@Valid UserDTO user, BindingResult bindingResult, ModelMap modelMap) {
 
-        if (userDTO.getPassword() != null && !userDTO.getPassword().equals(userDTO.getConfirmPassword())) {
+        if (user.getPassword() != null && !user.getPassword().equals(user.getConfirmPassword())) {
             bindingResult.rejectValue("password", "password", "Passwords are different!");
-            modelMap.addAttribute("userDTO", userDTO);
+            modelMap.addAttribute("userDTO", user);
             return "accountApp/registration";
         }
 
         if (bindingResult.hasErrors()) {
-            modelMap.addAttribute("userDTO", userDTO);
+            modelMap.addAttribute("userDTO", user);
             return "accountApp/registration";
         }
 
         try {
-            userService.register(userDTO);
+            userService.register(user);
         } catch (UserAlreadyExistException e) {
 
             // Duplicate User Error
             bindingResult.rejectValue("email", "email", "An account already exists for this email.");
-            modelMap.addAttribute("userDTO", userDTO);
+            modelMap.addAttribute("userDTO", user);
             return "accountApp/registration";
         }
         modelMap.addAttribute("registrationMsg", messageSource.getMessage("user.registration.verification.email.msg", null, LocaleContextHolder.getLocale()));

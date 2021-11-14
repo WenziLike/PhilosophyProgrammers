@@ -3,7 +3,6 @@ package com.philosophyprogrammers.controller;
 import com.philosophyprogrammers.dto.ArticleDTO;
 import com.philosophyprogrammers.entity.ArticleEntity;
 import com.philosophyprogrammers.service.article.ArticleServiceImpl;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -25,7 +24,7 @@ import java.time.format.DateTimeFormatter;
 @Controller
 public class ArticleController {
 
-    private ArticleServiceImpl articleServiceImpl;
+    private final ArticleServiceImpl articleServiceImpl;
     private static final String REDIRECT_INDEX = "redirect:/";
 
     public ArticleController(ArticleServiceImpl articleServiceImpl) {

@@ -17,7 +17,7 @@ public class TokenServiceImpl implements TokenService {
      * Generation Token
      */
     private final static BytesKeyGenerator
-            DEFAULT_TOKEN_KEY_GENERATOR = KeyGenerators.secureRandom(24);
+            DEFAULT_TOKEN_KEY_GENERATOR = KeyGenerators.secureRandom(12);
     private final static Charset US_ASCII = Charset.forName("US-ASCII");
 
     /**
@@ -27,7 +27,7 @@ public class TokenServiceImpl implements TokenService {
     private int tokenValidationsInSeconds;
 
 
-    private TokenRepository tokenRepository;
+    private final TokenRepository tokenRepository;
 
     public TokenServiceImpl(TokenRepository tokenRepository) {
         this.tokenRepository = tokenRepository;
