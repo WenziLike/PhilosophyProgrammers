@@ -5,6 +5,7 @@ import com.philosophyprogrammers.entity.UserEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -17,15 +18,16 @@ import java.util.List;
  */
 
 @Controller
+@RequestMapping("/account")
 public class ApplicationController {
 
-    @GetMapping("/account/home")
+    @GetMapping("/home")
     public String showUsersList(ModelMap modelMap) {
         modelMap.addAttribute("userDTO", new UserDTO());
         return "home";
     }
 
-    @GetMapping("/account/profile")
+    @GetMapping("/profile")
     public String showProfileUser() {
         return "accountApp/profile";
     }
