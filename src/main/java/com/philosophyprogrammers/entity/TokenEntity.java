@@ -1,5 +1,7 @@
 package com.philosophyprogrammers.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -14,6 +16,8 @@ import java.time.LocalDateTime;
  * @version 1.0
  */
 
+@Getter
+@Setter
 @Entity
 @Table(name = "secure_tokens")
 public class TokenEntity {
@@ -22,11 +26,11 @@ public class TokenEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String token;
 
     @CreationTimestamp
-    @Column(updatable = false)
+    @Column(updatable = false, nullable = false)
     private Timestamp timeStamp;
 
     @Column(updatable = false)
@@ -40,79 +44,8 @@ public class TokenEntity {
     @Transient
     private boolean isExpired;
 
-    /**
-     * ==================== Constructor
-     */
-
-    public TokenEntity() {
-    }
-
-    public TokenEntity(String token,
-                       Timestamp timeStamp,
-                       LocalDateTime expireAt,
-                       UserEntity user,
-                       boolean isExpired) {
-        this.token = token;
-        this.timeStamp = timeStamp;
-        this.expireAt = expireAt;
-        this.user = user;
-        this.isExpired = isExpired;
-    }
-
-    /**
-     * ==================== Getters and Setters
-     */
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public Timestamp getTimeStamp() {
-        return timeStamp;
-    }
-
-    public LocalDateTime getExpireAt() {
-        return expireAt;
-    }
-
-    public void setExpireAt(LocalDateTime expireAt) {
-        this.expireAt = expireAt;
-    }
-
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UserEntity user) {
-        this.user = user;
-    }
-
     // this is generic implementation, you can always make it timezone specific
     public boolean isExpired() {
         return getExpireAt().isBefore(LocalDateTime.now());
-    }
-
-    public void setExpired(boolean expired) {
-        isExpired = expired;
-    }
-
-    @Override
-    public String toString() {
-        return "TokenEntity{" +
-                "id=" + id +
-                ", token='" + token + '\'' +
-                ", timeStamp=" + timeStamp +
-                ", expireAt=" + expireAt +
-                ", user=" + user +
-                ", isExpired=" + isExpired +
-                '}';
     }
 }
