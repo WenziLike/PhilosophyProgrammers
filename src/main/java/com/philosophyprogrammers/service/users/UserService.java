@@ -21,7 +21,7 @@ public interface UserService {
 
     boolean checkUserExist(String email);
 
-    void sendRegistrationConfirmationEmail(final UserEntity user);
+    void sendRegistrationConfirmationEmail(UserEntity user);
 
     boolean verifyUser(String token) throws InvalidTokenException;
 

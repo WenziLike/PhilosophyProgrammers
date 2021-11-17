@@ -51,8 +51,8 @@ public class TokenServiceImpl implements TokenService {
     }
 
     @Override
-    public void saveToken(TokenEntity tokenEntity) {
-        tokenRepository.save(tokenEntity);
+    public void saveToken(TokenEntity token) {
+        tokenRepository.save(token);
     }
 
     @Override

@@ -30,7 +30,7 @@ import java.util.Objects;
  * @version 1.0
  */
 
-@Service("userService")
+@Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -58,15 +58,15 @@ public class UserServiceImpl implements UserService {
     private String baseURL;
 
     @Override
-    public void register(UserDTO userDTO) throws UserAlreadyExistException {
+    public void register(UserDTO user) throws UserAlreadyExistException {
 
-        if (checkUserExist(userDTO.getEmail())) {
+        if (checkUserExist(user.getEmail())) {
             throw new UserAlreadyExistException("User already exists for this email");
         }
 
         UserEntity userEntity = new UserEntity();
-        BeanUtils.copyProperties(userDTO, userEntity);
-        encodePassword(userDTO, userEntity);
+        BeanUtils.copyProperties(user, userEntity);
+        encodePassword(user, userEntity);
         updateCustomerGroup(userEntity);
         userRepository.save(userEntity);
         sendRegistrationConfirmationEmail(userEntity);
