@@ -1,6 +1,7 @@
 package com.philosophyprogrammers.service.email;
 
 import com.philosophyprogrammers.service.email.context.AbstractEmailContext;
+import lombok.AllArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -14,18 +15,12 @@ import java.nio.charset.StandardCharsets;
 /**
  * email service to send a confirmation email
  */
-
+@AllArgsConstructor
 @Service
 public class EmailServiceImpl implements EmailService {
 
     private final JavaMailSender emailSender;
-
     private final SpringTemplateEngine templateEngine;
-
-    public EmailServiceImpl(JavaMailSender emailSender, SpringTemplateEngine templateEngine) {
-        this.emailSender = emailSender;
-        this.templateEngine = templateEngine;
-    }
 
     @Override
     public void sendMail(AbstractEmailContext email) throws MessagingException {
