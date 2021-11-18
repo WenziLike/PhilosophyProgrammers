@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface UserService {
 
-    void register(UserDTO userDTO) throws UserAlreadyExistException;
+    void register(UserDTO user) throws UserAlreadyExistException;
 
     boolean checkUserExist(String email);
 

@@ -23,7 +23,7 @@ public class UserDTO implements Serializable {
     private String lastName;
     @NotEmpty(message = "Username can not be empty")
     private String username;
-
+    @NotEmpty(message = "Email can not be empty")
     @Email(message = "Please provide a valid email id")
     private String email;
     @NotEmpty(message = "Password can not be empty")

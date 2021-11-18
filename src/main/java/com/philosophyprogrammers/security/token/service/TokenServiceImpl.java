@@ -34,7 +34,7 @@ public class TokenServiceImpl implements TokenService {
     }
 
     /**
-     * Implements methods Token Repository {@link TokenRepository}
+     * Implements methods Token Repository {@link TokenService}
      */
 
     @Override
