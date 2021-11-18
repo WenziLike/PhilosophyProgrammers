@@ -1,6 +1,6 @@
-package com.philosophyprogrammers.service.email;
+package com.philosophyprogrammers.email;
 
-import com.philosophyprogrammers.service.email.context.AbstractEmailContext;
+import com.philosophyprogrammers.email.context.AbstractEmailContext;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;

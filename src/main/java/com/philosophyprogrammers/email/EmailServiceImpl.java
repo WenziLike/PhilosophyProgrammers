@@ -1,6 +1,6 @@
-package com.philosophyprogrammers.service.email;
+package com.philosophyprogrammers.email;
 
-import com.philosophyprogrammers.service.email.context.AbstractEmailContext;
+import com.philosophyprogrammers.email.context.AbstractEmailContext;
 import lombok.AllArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;

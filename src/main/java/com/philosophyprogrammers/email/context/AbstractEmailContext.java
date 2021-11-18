@@ -1,5 +1,4 @@
-package com.philosophyprogrammers.service.email.context;
-
+package com.philosophyprogrammers.email.context;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +25,6 @@ public abstract class AbstractEmailContext {
     private String templateLocation;
     private Map<String, Object> context;
 
-
     public AbstractEmailContext() {
         this.context = new HashMap<>();
     }
@@ -39,5 +37,4 @@ public abstract class AbstractEmailContext {
     public Object put(String key, Object value) {
         return key == null ? null : this.context.put(key.intern(), value);
     }
-
 }
