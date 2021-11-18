@@ -1,15 +1,16 @@
-package com.philosophyprogrammers.controller;
+package com.philosophyprogrammers.controllers;
 
 import com.philosophyprogrammers.dto.UserDTO;
 import com.philosophyprogrammers.entity.UserEntity;
 import com.philosophyprogrammers.exceptions.InvalidTokenException;
 import com.philosophyprogrammers.exceptions.UserAlreadyExistException;
 import com.philosophyprogrammers.service.users.UserService;
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,51 +41,46 @@ public class RegisterController {
     private final UserService userService;
     private final MessageSource messageSource;
 
-
     public RegisterController(UserService userService, MessageSource messageSource) {
         this.userService = userService;
         this.messageSource = messageSource;
     }
 
-    /**
-     * Registration Users
-     */
-
     @GetMapping
-    public String showFormRegistrationUser(ModelMap modelMap) {
-        modelMap.addAttribute("userDTO", new UserDTO());
+    public String showFormRegisterUser(Model model) {
+        model.addAttribute("userDTO", new UserDTO());
         return "accountApp/registration";
     }
 
     @PostMapping
-    public String userRegistration(@Valid UserDTO user, BindingResult bindingResult, ModelMap modelMap) {
+    public String userRegister(@Valid UserDTO userDTO, BindingResult bindingResult, Model model) {
 
-        if (user.getPassword() != null && !user.getPassword().equals(user.getConfirmPassword())) {
+        if (userDTO.getPassword() != null && !userDTO.getPassword().equals(userDTO.getConfirmPassword())) {
             bindingResult.rejectValue("password", "password", "Passwords are different!");
-            modelMap.addAttribute("userDTO", user);
+            model.addAttribute("userDTO", userDTO);
             return "accountApp/registration";
         }
 
         if (bindingResult.hasErrors()) {
-            modelMap.addAttribute("userDTO", user);
+            model.addAttribute("userDTO", userDTO);
             return "accountApp/registration";
         }
 
         try {
-            userService.register(user);
+            userService.register(userDTO);
         } catch (UserAlreadyExistException e) {
 
             // Duplicate User Error
             bindingResult.rejectValue("email", "email", "An account already exists for this email.");
-            modelMap.addAttribute("userDTO", user);
+            model.addAttribute("userDTO", userDTO);
             return "accountApp/registration";
         }
-        modelMap.addAttribute("registrationMsg", messageSource.getMessage("user.registration.verification.email.msg", null, LocaleContextHolder.getLocale()));
+        model.addAttribute("registrationMsg", messageSource.getMessage("user.registration.verification.email.msg", null, LocaleContextHolder.getLocale()));
         return "accountApp/registration";
     }
 
     @GetMapping("/verify")
-    public String verifyAccount(@RequestParam(required = false) String token, ModelMap modelMap, RedirectAttributes redirectAttributes) {
+    public String verifyAccountUser(@RequestParam(required = false) String token, Model model, RedirectAttributes redirectAttributes) {
         if (StringUtils.isEmpty(token)) {
             redirectAttributes.addFlashAttribute("tokenError", messageSource.getMessage("user.registration.verification.missing.token", null, LocaleContextHolder.getLocale()));
             return REDIRECT_LOGIN;
@@ -95,7 +91,6 @@ public class RegisterController {
             redirectAttributes.addFlashAttribute("tokenError", messageSource.getMessage("user.registration.verification.invalid.token", null, LocaleContextHolder.getLocale()));
             return REDIRECT_LOGIN;
         }
-
         redirectAttributes.addFlashAttribute("verifiedAccountMsg", messageSource.getMessage("user.registration.verification.success", null, LocaleContextHolder.getLocale()));
         return REDIRECT_LOGIN;
     }
