@@ -1,19 +1,12 @@
 package com.philosophyprogrammers.security.config;
 
-import com.philosophyprogrammers.handlers.LoginAuthenticationFailureHandler;
-import lombok.AllArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationEventPublisher;
-import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,12 +20,13 @@ import javax.sql.DataSource;
 
 /**
  * Spring Security Login Configurations
+ * <p>
+ * #-> Создаем первым делом Web Security Config + Authentication Provider
  *
  * @author Viacheslav Murakhin
  * @version 1.0
  */
 
-@Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -54,50 +48,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/registration", "/login").permitAll()
-                .antMatchers("/account/**", "/write").hasAnyAuthority("USER", "ADMIN", "MODERATOR")
+                .antMatchers("/register", "/login").permitAll()
+                .antMatchers("/account/**", "/write").hasAnyAuthority("USER")
                 .and()
 
-                //Setting HTTPS for my account
+                /* ============== Setting HTTPS for my account*/
 //                .requiresChannel().anyRequest().requiresSecure()
-//                .and()
+                .requiresChannel().antMatchers("/account/**").requiresSecure()
+                .and()
+
                 /*============== REMEMBER ME*/
                 .rememberMe().tokenRepository(persistentTokenRepository())
-                .rememberMeCookieDomain("domain")
-                .rememberMeCookieName("custom-remember-me-cookie")
                 .userDetailsService(this.userDetailsService)
-//                .rememberMeParameter("username")
-//                .rememberMeServices(null)
-
-                // Checking cookies in seconds
-                .tokenValiditySeconds(2000)
+                .tokenValiditySeconds(86400) // 24 hour
                 .useSecureCookie(true)
+
                 .and()
 
                 /*============== LOGIN configurations*/
                 .formLogin().defaultSuccessUrl("/account/home")
                 .loginPage("/login")
                 .failureUrl("/login?error=true")
-                .failureHandler(failureHandler())
                 .and()
-                /*============== LOGOUT*/
-                .logout()
-//                .invalidateHttpSession(true)
-                .deleteCookies("PhProgrammers")
-                .logoutSuccessUrl("/login");
-    }
 
-    @Bean
-    public LoginAuthenticationFailureHandler failureHandler() {
-        LoginAuthenticationFailureHandler failureHandler = new LoginAuthenticationFailureHandler();
-        failureHandler.setDefaultFailureUrl("/login?error=true");
-        return failureHandler;
-    }
+                /*============== LOGOUT configurations*/
+                .logout().deleteCookies("programmersCookie");
 
-    @Bean
-    public AuthenticationEventPublisher authenticationEventPublisher
-            (ApplicationEventPublisher applicationEventPublisher) {
-        return new DefaultAuthenticationEventPublisher(applicationEventPublisher);
     }
 
     @Bean
@@ -109,13 +85,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * We need this bean for the session management. Specially if we want to control the concurrent session-control support
      * with Spring security.
-     *
      * @return
      */
     @Bean
-    public HttpSessionEventPublisher httpSessionEventPublisher() {
+    public HttpSessionEventPublisher httpSessionEventPublisher(){
         return new HttpSessionEventPublisher();
     }
+
+
 
     @Override
     public void configure(WebSecurity web) {
@@ -125,9 +102,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * DAO authentication provider. This authentication provider will authenticate the user with the help of
-     * This is based on the validating the user with the username and password.
+     *
+     * @return
+     * @UserdetailsService. This is based on the validating the user with the username and password.
      */
-
     @Bean
     public DaoAuthenticationProvider authProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -144,7 +122,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      *
      * @param auth
      */
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authProvider());
