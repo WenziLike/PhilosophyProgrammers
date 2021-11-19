@@ -72,7 +72,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
 
                 /*============== LOGOUT configurations*/
-                .logout().deleteCookies("programmersCookie");
+                .logout().deleteCookies("programmersCookie")
+                .logoutSuccessUrl("/login")
+                .and()
+
+                /*============== Session*/
+                .sessionManagement()
+                .invalidSessionUrl("/login?invalid-session=true");
+
 
     }
 
@@ -85,13 +92,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * We need this bean for the session management. Specially if we want to control the concurrent session-control support
      * with Spring security.
+     *
      * @return
      */
     @Bean
-    public HttpSessionEventPublisher httpSessionEventPublisher(){
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
         return new HttpSessionEventPublisher();
     }
-
 
 
     @Override
