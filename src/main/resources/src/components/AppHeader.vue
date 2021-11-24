@@ -2,7 +2,7 @@
   <header class="header">
     <div class="header__container">
       <div class="header__logo">
-        <a href="/home">Philosophy <span>Programmer's</span></a>
+        <a href="/">Philosophy <span>Programmer's</span></a>
       </div>
       <nav class="header__menu">
         <router-link :to="{ name: 'writeStory' }">write a story</router-link>
@@ -25,6 +25,7 @@ export default {
 
 .header {
   position: sticky;
+  z-index: 1000;
   width: 100%;
   padding: 10px 40px 10px 20px;
 
@@ -37,7 +38,7 @@ export default {
 
   &__logo {
     a {
-      color: lightslategray;
+      color: var(--colorText);
       font-weight: 700;
       text-decoration: none;
       font-size: 26px;
@@ -51,12 +52,13 @@ export default {
     }
   }
 
-  .header__menu {
+  &__menu {
     a {
       text-transform: uppercase;
       font-weight: 700;
       text-decoration: none;
-      color: #5e5e5e;
+      color: var(--colorText);
+      //color: #5e5e5e;
       width: 120px;
       display: inline-block;
       text-align: center;
@@ -64,7 +66,7 @@ export default {
       -webkit-transition: all .33s linear;
 
       &.active {
-        color: #0b76ef;
+        color: var(--blueRegular);
       }
 
       &:nth-child(1) {
@@ -76,7 +78,7 @@ export default {
     div {
       width: 120px;
       height: 1px;
-      background: #0b76ef;
+      background: var(--blueRegular);
     }
 
 
@@ -89,7 +91,7 @@ export default {
     a:nth-child(2):hover ~ div {
       transform: translate(210px);
       -webkit-transform: translate(210px);
-      background-color: #028d0b;
+      background-color: var(--darkGreen);
       transition: all .33s linear;
       -webkit-transition: all .33s linear;
     }

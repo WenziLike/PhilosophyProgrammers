@@ -1,14 +1,11 @@
 <template>
-  <svg v-if="name==='disabledPassword'" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Iconly/Two-tone/Password</title>
-    <g id="Iconly/Two-tone/Password" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
-      <g id="Password" transform="translate(2.000000, 2.000000)" stroke="#000000" stroke-width="1.5">
-        <path d="M14.3344,0.7502 L5.6654,0.7502 C2.6444,0.7502 0.7504,2.8892 0.7504,5.9162 L0.7504,14.0842 C0.7504,17.1112 2.6354,19.2502 5.6654,19.2502 L14.3334,19.2502 C17.3644,19.2502 19.2504,17.1112 19.2504,14.0842 L19.2504,5.9162 C19.2504,2.8892 17.3644,0.7502 14.3344,0.7502 Z" id="Stroke-1" opacity="0.400000006"></path>
-        <path d="M8.6923,10.0002 C8.6923,11.0222 7.8633,11.8522 6.8403,11.8522 C5.8183,11.8522 4.9893,11.0222 4.9893,10.0002 C4.9893,8.9782 5.8183,8.1482 6.8403,8.1482 C7.8633,8.1482 8.6923,8.9782 8.6923,10.0002 Z" id="Stroke-3"></path>
-        <polyline id="Stroke-5" points="8.6923 10.0002 15.0103 10.0002 15.0103 11.8522"></polyline>
-        <line x1="12.1816" y1="11.8517" x2="12.1816" y2="9.9997" id="Stroke-7"></line>
-      </g>
-    </g>
+  <svg v-if="name==='icon-show-pass'" width="24" height="24" viewBox="0 0 24 24" fill="none"
+       xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 9C10.358 9 9 10.359 9 12C9 13.642 10.358 15 12 15C13.641 15 15 13.642 15 12C15 10.359 13.641 9 12 9Z"
+          fill="black"/>
+    <path
+        d="M12 5C4.408 5 2.12632 11.617 2.10543 11.684L2 12L2.10444 12.316C2.12632 12.383 4.408 19 12 19C19.592 19 21.8737 12.383 21.8946 12.316L22 12L21.8956 11.684C21.8737 11.617 19.592 5 12 5ZM12 17C6.67774 17 4.61587 13.154 4.11657 12C4.61786 10.842 6.68072 7 12 7C17.3223 7 19.3841 10.846 19.8834 12C19.3821 13.158 17.3193 17 12 17Z"
+        fill="black"/>
   </svg>
 </template>
 
@@ -18,7 +15,3 @@ export default {
   props: ['name']
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

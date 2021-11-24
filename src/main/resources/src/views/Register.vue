@@ -14,8 +14,7 @@
         <input type="password"/>
       </label>
 
-      <icon name="disabledPassword" class="disabledPassword disabled__password"></icon>
-
+      <icon name="icon-show-pass" class="icon-show-pass icon__show-pass"></icon>
       <div class="block">
         <!--=========  REMEMBER ME-->
         <div class="check">
@@ -78,7 +77,7 @@
             <input type="password"/>
           </label>
         </div>
-
+        <icon name="icon-show-pass" class="icon-show-pass"></icon>
         <div class="block">
           <!--=========  agreeTerms -->
           <div class="check">
@@ -133,7 +132,7 @@ button {
   border-radius: 6px;
   width: 900px;
   height: 550px;
-  background: #fff;
+  background: var(--white);
   box-shadow: 0 5px 45px rgba(0, 0, 0, 0.25);
 }
 
@@ -148,18 +147,18 @@ button {
   padding: 50px 30px 0;
 
   /* =============== SVG Icons Password*/
-  .disabledPassword {
+  .icon-show-pass {
     position: relative;
-    //z-index: 3000;
-    margin-left: 40px;
-    width: 32px;
-    height: 32px;
+    left: 12px;
+    top: -30px;
     cursor: pointer;
+    color: var(--colorText);
   }
 
-  .disabled__password {
-    margin-left: 410px;
-    top: -40px;
+  .icon__show-pass {
+    position: relative;
+    margin-left: 386px;
+    top: -30px;
   }
 }
 
@@ -171,7 +170,7 @@ button {
   width: 900px;
   height: 100%;
   padding-left: 260px;
-  background: #fff;
+  background: var(--white);
   -webkit-transition: -webkit-transform 1.2s ease-in-out;
   transition: -webkit-transform 1.2s ease-in-out;
   transition: transform 1.2s ease-in-out;
@@ -189,7 +188,7 @@ button {
   width: 240px;
   height: 36px;
   border-radius: 30px;
-  color: #fff;
+  color: var(--white);
   font-size: 15px;
   cursor: pointer;
 }
@@ -243,7 +242,7 @@ button {
   width: 100%;
   padding: 0 20px;
   text-align: center;
-  color: #fff;
+  color: var(--white);
   -webkit-transition: -webkit-transform 1.2s ease-in-out;
   transition: -webkit-transform 1.2s ease-in-out;
   transition: transform 1.2s ease-in-out;
@@ -283,13 +282,13 @@ button {
   height: 36px;
   margin: 0 auto;
   background: transparent;
-  color: #fff;
+  color: var(--white);
   text-transform: uppercase;
   font-size: 15px;
   cursor: pointer;
 
   &:hover {
-    color: #0b76ef;
+    color: var(--blueRegular);
   }
 }
 
@@ -301,7 +300,7 @@ button {
   top: 0;
   width: 100%;
   height: 100%;
-  border: 1px solid #fff;
+  border: 1px solid var(--white);
   border-radius: 30px;
 }
 
@@ -377,7 +376,7 @@ input {
   font-weight: 700;
   font-size: 16px;
   letter-spacing: .6px;
-  background-color: white;
+  background-color: var(--white);
   color: #495A72;
   border-radius: 60px;
   border: 1px solid #495A72;
@@ -385,7 +384,7 @@ input {
 
   &:hover {
     background-color: #495A72;
-    color: white;
+    color: var(--white);
   }
 }
 
@@ -395,7 +394,7 @@ input {
   span {
     margin-left: 6px;
     font-weight: 900;
-    color: #0b76ef;
+    color: var(--blueRegular);
     text-decoration: underline;
 
     &:hover {
@@ -454,10 +453,10 @@ input {
     a {
       text-decoration: none;
       margin-left: 8px;
-      color: #0b76ef;
+      color: var(--blueRegular);
 
       span {
-        color: #138301;
+        color: var(--darkGreen);
         font-weight: 900;
         font-size: 14px;
       }
@@ -492,8 +491,8 @@ input {
   }
 
   .custom-checkbox:checked + label::before {
-    border-color: #0b76ef;
-    background-color: #0b76ef;
+    border-color: var(--blueRegular);
+    background-color: var(--blueRegular);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
   }
 

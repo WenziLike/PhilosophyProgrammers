@@ -111,7 +111,7 @@ export default {
         position: absolute;
         width: 5px;
         height: 10%;
-        background-color: #028d0b;
+        background-color: var(--bgCursor);
         left: 100px;
         top: 18%;
         animation-name: blink;
@@ -175,7 +175,7 @@ export default {
         }
 
         100% {
-          fill: #0b76ef;
+          fill: var(--blueRegular);
           stroke-dashoffset: 0;
           opacity: 0;
           transform: translateY(-10px);
@@ -189,9 +189,9 @@ export default {
         padding: 15px 5px;
         text-transform: uppercase;
         vertical-align: middle;
-        background: #0b76ef;
+        background: var(--blueRegular);
         border: none;
-        color: #ffffff;
+        color: var(--white);
         font-weight: 600;
         border-radius: 5px;
         box-shadow: 0 0 10px #009EE3FF;
@@ -206,9 +206,6 @@ export default {
         outline: none;
       }
 
-    }
-
-    .tools {
     }
   }
 }
