@@ -5,10 +5,6 @@
         <h1>True &</h1>
         <h2>False</h2>
       </div>
-      <div class="home__quote">
-        <q>If I were asked to choose some modern language <br>to replace Java, I would choose Scala.</q>
-        <span>@ James Gosling</span>
-      </div>
       <div class="home__cube">
         <div class="box">
           <div class="box-page top"></div>
@@ -19,6 +15,9 @@
           <div class="box-page after"></div>
         </div>
       </div>
+      <a href="/articles">
+        <icon name="arrow-down"></icon>
+      </a>
     </div>
   </div>
 </template>
@@ -26,8 +25,12 @@
 <script>
 // @ is an alias to /src
 
+
+import Icon from "@/components/svg/icon";
+
 export default {
-  name: 'home'
+  name: 'home',
+  components: {Icon}
 }
 </script>
 
@@ -58,46 +61,12 @@ export default {
     }
   }
 
-  &__quote {
-    margin-top: 20px;
-    text-align: right;
-    font-weight: 700;
-
-    q {
-      display: block;
-      color: #d30000;
-      font-size: 18px;
-    }
-
-    span {
-      margin-right: 30px;
-      color: var(--colorText);
-      /*====================  LINE TEXT*/
-      &:before {
-        content: '';
-        display: inline-block;
-        vertical-align: middle;
-        width: 20%;
-        height: 0.5px;
-        border: .5px solid var(--colorText);
-        position: relative;
-      }
-
-      &:before {
-        /* Ставим левую линию слева от текста, смещая ее на 100% влево */
-        margin-left: -100%;
-        /* Отступ линии от заголовка */
-        left: -14px;
-      }
-    }
-  }
-
   &__cube {
     perspective: 20000px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 50vh;
+    position: relative;
+    margin-top: 200px;
+    left: 70%;
+    bottom: 50%;
 
     .box {
       position: relative;
@@ -189,6 +158,25 @@ export default {
     }
   }
 
-}
+  /* arrow - down*/
+  .arrow-down {
+    display: inline-block;
+    border-radius: 100%;
+    color: var(--colorText);
+    border: 1px solid var(--colorText);
+    transform: rotateX(180deg);
+    cursor: pointer;
 
+    &:hover {
+      color: var(--darkBlue);
+      border: 1px solid var(--blueRegular);
+    }
+  }
+}
 </style>
+
+
+<!--      <div class="home__quote">-->
+<!--        <q>If I were asked to choose some modern language <br>to replace Java, I would choose Scala.</q>-->
+<!--        <span>@ James Gosling</span>-->
+<!--      </div>-->

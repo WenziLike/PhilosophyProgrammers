@@ -58,7 +58,6 @@ export default {
       font-weight: 700;
       text-decoration: none;
       color: var(--colorText);
-      //color: #5e5e5e;
       width: 120px;
       display: inline-block;
       text-align: center;
@@ -129,4 +128,5 @@ export default {
     }
   }
 }
+
 </style>
