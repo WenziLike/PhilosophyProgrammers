@@ -8,7 +8,7 @@
         fill="black"/>
   </svg>
 <!--  v-if="name==='arrow-down'"-->
-  <svg v-if="name==='arrow-down'" width="54" height="54" viewBox="0 0 24 24" role="presentation"  class="arrow-down"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z" style="fill: currentcolor;"></path></svg>
+  <svg v-if="name==='arrow-down'" width="54" height="54" viewBox="0 0 24 24" role="presentation"  class="home__arrow-down"><path d="M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z" style="fill: currentcolor;"></path></svg>
 </template>
 
 <script>

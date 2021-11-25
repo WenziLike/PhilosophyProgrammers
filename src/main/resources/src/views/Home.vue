@@ -24,8 +24,6 @@
 
 <script>
 // @ is an alias to /src
-
-
 import Icon from "@/components/svg/icon";
 
 export default {
@@ -36,9 +34,6 @@ export default {
 
 <style lang="scss">
 .home {
-  &__container {
-  }
-
   &__title {
     h1, h2 {
       position: absolute;
@@ -159,8 +154,9 @@ export default {
   }
 
   /* arrow - down*/
-  .arrow-down {
-    display: inline-block;
+  &__arrow-down {
+    position: fixed;
+    bottom: 10%;
     border-radius: 100%;
     color: var(--colorText);
     border: 1px solid var(--colorText);
